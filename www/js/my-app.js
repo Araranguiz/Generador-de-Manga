@@ -39,18 +39,10 @@ var userName, name, email, photoUrl, uid, emailVerified;
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
-    //Es una prueba para ver si funciona la API
-    const jikanjs = require('jikanjs');
+    $$('#btnR').on('click', randomButton);
 
-    jikanjs.loadAnime(19815, 'episodes').then((response) => {
-        response.episodes.forEach(element => {
-            console.log(`${element.episode_id}: ${element.title} - ${element.title_romanji} - ${element.title_japanese}`);
-        })
-    }).catch((err) => {
-        console.error(err); // in case a error happens
-    });
 
-    //
+
 
     firebase.auth().onAuthStateChanged(function(user) {
               if (user) {
@@ -192,3 +184,22 @@ function logOut() {
                 // ...
             });
     }
+
+function randomButton() {
+
+  var numero = Math.floor(Math.random() * 13400) + 1;
+
+  var url = 'https://api.jikan.moe/v3/manga/' + numero;
+
+  app.request.json(url, function (datosRecibidos) {
+
+      imgManga = datosRecibidos.image_url;
+      tManga = datosRecibidos.title;
+
+      $$('#imgManga').attr('src',imgManga);
+      $$('#tManga').html(tManga);
+
+    });
+
+    console.log("Datos: " + url);
+}
