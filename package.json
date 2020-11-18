@@ -38,12 +38,15 @@
     "dom7": "^2.1.3",
     "framework7": "^5.4.2",
     "framework7-icons": "^3.0.0",
+    "mal-scraper": "^2.11.2",
     "template7": "^1.4.2"
   },
   "devDependencies": {
+    "cordova-browser": "^6.0.0",
+    "cordova-plugin-whitelist": "^1.3.4",
     "cpy-cli": "^3.1.0",
     "http-server": "^0.12.1",
-    "cordova-plugin-whitelist": "1"
+    "jikanjs": "git+https://github.com/zuritor/jikanjs.git"
   },
   "main": "index.html",
   "keywords": [
@@ -58,7 +61,10 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {}
-    }
+    },
+    "platforms": [
+      "browser"
+    ]
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
