@@ -47,8 +47,25 @@ $$(document).on('deviceready', function() {
     firebase.auth().onAuthStateChanged(function(user) {
               if (user) {
                 // User is signed in.
+                var db = firebase.firestore();
+                var email = $$('#logEmail').val();
+                claveDeColeccion = email;
+                var docRef = db.collection("Usuarios").doc(claveDeColeccion);
+
+                docRef.get().then(function(doc) {
+                    if (doc.exists) {
+                        console.log("Document data:", doc.data().nombre);
+                        var n = doc.data().nombre;
+                        $$('#userInfo').append("<h1>Bienvenid@ " + "<b>" + n + "</b>" + "</h1>");
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                }).catch(function(error) {
+                    console.log("Error getting document:", error);
+                });
                   
-                  var db = firebase.firestore();
+                  /*var db = firebase.firestore();
                   var colUsuarios = db.collection("Usuarios");
 
                       colUsuarios.get()
@@ -62,7 +79,7 @@ $$(document).on('deviceready', function() {
                           })
                           .catch(function(error) {
                               console.log("Error: ", error);
-                          } );
+                          } );*/
 
               } else {
                 // No user is signed in.
@@ -187,7 +204,7 @@ function logOut() {
 
 function randomButton() {
 
-  var numero = Math.floor(Math.random() * 13400) + 1;
+  var numero = Math.floor(Math.random() * 88531) + 1;
 
   var url = 'https://api.jikan.moe/v3/manga/' + numero;
 
@@ -196,10 +213,20 @@ function randomButton() {
       imgManga = datosRecibidos.image_url;
       tManga = datosRecibidos.title;
 
+      gManga = datosRecibidos.genres[1].name;
+
+      pManga = datosRecibidos.score;
+      sManga = datosRecibidos.synopsis;
+
       $$('#imgManga').attr('src',imgManga);
       $$('#tManga').html(tManga);
+      $$('#gManga').html(gManga);
+      $$('#pManga').html(pManga);
+      $$('#sManga').html(sManga);
+    }, fnError);
+}
 
-    });
-
-    console.log("Datos: " + url);
+function fnError() {
+  console.log("Solo entra acá si no funciona");
+  return randomButton();
 }
