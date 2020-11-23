@@ -211,18 +211,42 @@ function randomButton() {
   app.request.json(url, function (datosRecibidos) {
 
       imgManga = datosRecibidos.image_url;
+
+      var arrAuthors = datosRecibidos.authors.length;
+      var aManga = "";
+      for(var i = 0; i < arrAuthors; i++) {
+        aManga += datosRecibidos.authors[i].name + " ";
+        $$('#aManga').html(aManga);
+      }
+
       tManga = datosRecibidos.title;
 
-      gManga = datosRecibidos.genres[1].name;
+      var arrGenres = datosRecibidos.genres.length;
+      var gManga = "";
+      for(var i = 0; i < arrGenres; i++) {
+        gManga += datosRecibidos.genres[i].name + " ";
+        $$('#gManga').html('<div class="col button button-fill button-round">' + gManga + '</div>');
+
+        var genreEx = datosRecibidos.genres[i].mal_id;
+        console.log(genreEx);
+
+        if (genreEx == 12 || genreEx == 33) {
+          console.log("Genero excluido");
+          gManga = "";
+          $$('#gManga').html(gManga)
+          return randomButton();
+        }
+      }
 
       pManga = datosRecibidos.score;
       sManga = datosRecibidos.synopsis;
+      lManga = datosRecibidos.url;
 
       $$('#imgManga').attr('src',imgManga);
       $$('#tManga').html(tManga);
-      $$('#gManga').html(gManga);
       $$('#pManga').html(pManga);
       $$('#sManga').html(sManga);
+      $$('#lManga').html(lManga);
     }, fnError);
 }
 
