@@ -53,16 +53,45 @@
                 <div class="page-content">
                     <div class="block">
                         
-                        <button id="btnR" type="button">Random Manga</button>
+                        <button class="col button button-fill button-round color-blue text-color-white" id="btnR" type="button">Random Manga</button>
+
+                        <div class="list simple-list">
+                          <ul>
+                            <li class="item-row">
+                              <div class="item-cell width-auto flex-shrink-0">
+                                <span class="p0">0</span>
+                              </div>
+                              <div class="item-cell item-cell-shrink-3">
+                                <!-- Dual range slider with all the parameters passed via data- attributes -->
+                                <div
+                                  id="pfilter"
+                                  class="range-slider range-slider-init color-green"
+                                  data-label="true"
+                                  data-dual="true"
+                                  data-min="0"
+                                  data-max="10"
+                                  data-step="1"
+                                  data-value-left="0"
+                                  data-value-right="10"
+                                ></div>
+                              </div>
+                              <div class="item-cell width-auto flex-shrink-0">
+                                <span class="p1">10</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
+
 
                         <div class="col-50">
                             <h1 id="tManga"></h1>
                             <h2 id="aManga"></h2>
                             <img src="" id="imgManga" />
-                            <div id="gManga"></div>
+                            <div class="row" id="gManga"></div>
                             <h3 id="pManga"></h3>
                             <p id="sManga"></p>
-                            <p id="lManga"></p>
+                            <!--<p id="lManga"></p>-->
                         </br>
                         </div>
 
@@ -102,7 +131,6 @@
             </div>
         </div>
     </div>
-
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>

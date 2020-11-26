@@ -39,10 +39,9 @@ var userName, name, email, photoUrl, uid, emailVerified;
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
+    $$('#pfilter').on('range:change', pFilterManga);
+
     $$('#btnR').on('click', randomButton);
-
-
-
 
     firebase.auth().onAuthStateChanged(function(user) {
               if (user) {
@@ -204,53 +203,110 @@ function logOut() {
 
 function randomButton() {
 
-  var numero = Math.floor(Math.random() * 88531) + 1;
+  //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
-  var url = 'https://api.jikan.moe/v3/manga/' + numero;
+  num = Math.floor(Math.random() * 1046) + 1;
+
+  url = "https://api.jikan.moe/v3/top/manga/" + num;
+  console.log(url);
+
+  app.request.json(url, function (dR) {
+
+    rN = Math.floor(Math.random() * 50);
+    console.log(rN);
+
+        m = dR.top[rN].mal_id;
+        console.log(m);
+
+  //Aca se usa el ID ya generado para usar sus datos.
+
+  var url = 'https://api.jikan.moe/v3/manga/' + m;
 
   app.request.json(url, function (datosRecibidos) {
 
+      //Imagen del Manga.
       imgManga = datosRecibidos.image_url;
 
+      //Titulo del Manga.
+      tManga = datosRecibidos.title;
+
+      //Puntuación del Manga.
+      var pManga = datosRecibidos.score;
+
+      var v0 = $$('.p0').text();
+      console.log(v0);
+      var v1 = $$('.p1').text();
+      console.log(v1);
+
+      if (pManga < v0 || pManga >= v1) {
+        console.log("No es es puntaje solicitado")
+        return randomButton();
+      }
+
+      $$('#pManga').html(pManga);
+        
+      //Sinopsis del Manga.
+      sManga = datosRecibidos.synopsis;
+
+      //Url del Manga.
+      lManga = datosRecibidos.url;
+      console.log(lManga);
+
+      //Autor/es del Manga.
       var arrAuthors = datosRecibidos.authors.length;
       var aManga = "";
       for(var i = 0; i < arrAuthors; i++) {
-        aManga += datosRecibidos.authors[i].name + " ";
+        aManga = datosRecibidos.authors[i].name + " ";
         $$('#aManga').html(aManga);
       }
 
-      tManga = datosRecibidos.title;
-
+      //Genero/s del Manga.
       var arrGenres = datosRecibidos.genres.length;
       var gManga = "";
+      $$('#gManga').html("");
       for(var i = 0; i < arrGenres; i++) {
-        gManga += datosRecibidos.genres[i].name + " ";
-        $$('#gManga').html('<div class="col button button-fill button-round">' + gManga + '</div>');
+        gManga = datosRecibidos.genres[i].name + " ";
+        malId = datosRecibidos.genres[i].mal_id;
 
-        var genreEx = datosRecibidos.genres[i].mal_id;
-        console.log(genreEx);
+        $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');
 
-        if (genreEx == 12 || genreEx == 33) {
-          console.log("Genero excluido");
+        //Para excluir algunos generos.
+        /*if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
+          //console.log("Genero excluido");
+
+          tManga = "";
           gManga = "";
-          $$('#gManga').html(gManga)
-          return randomButton();
-        }
-      }
+          aManga = "";
+          pManga = "";
+          sManga = "";
+          imgManga = "";
 
-      pManga = datosRecibidos.score;
-      sManga = datosRecibidos.synopsis;
-      lManga = datosRecibidos.url;
+          $$('#sManga').html(sManga);
+          $$('#tManga').html(tManga);
+          $$('#gManga').html(gManga);
+          $$('#aManga').html(aManga);
+          $$('#pManga').html(pManga);
+          $$('#imgManga').attr('src',imgManga);
+          return randomButton();
+        }*/
+      }
 
       $$('#imgManga').attr('src',imgManga);
       $$('#tManga').html(tManga);
-      $$('#pManga').html(pManga);
       $$('#sManga').html(sManga);
       $$('#lManga').html(lManga);
     }, fnError);
+  });
 }
 
 function fnError() {
   console.log("Solo entra acá si no funciona");
   return randomButton();
 }
+
+function pFilterManga(e) {
+  var range = app.range.get(e.target);
+      $$('.p0').text((range.value[0]));
+      $$('.p1').text((range.value[1]));
+}
+

@@ -82,6 +82,8 @@
 
 * {
 	font-family: 'Poppins', Arial, sans-serif;
+  background-color: #323146;
+  color: white;
 }
 
 
@@ -89,4 +91,18 @@ body {
   text-align: center;
   max-width: 500px;
   margin: auto;
+}
+
+#gManga {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.idManga {
+  margin: 5px;
+}
+
+#sManga {
+  text-align: left;
 }
