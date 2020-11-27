@@ -39,11 +39,14 @@ var userName, name, email, photoUrl, uid, emailVerified;
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
+    /*$$('[name="demo-checkbox-movie"]').on('change', gCBManga);*/
+
     $$('#pfilter').on('range:change', pFilterManga);
 
     $$('#btnR').on('click', randomButton);
 
     firebase.auth().onAuthStateChanged(function(user) {
+
               if (user) {
                 // User is signed in.
                 var db = firebase.firestore();
@@ -205,18 +208,16 @@ function randomButton() {
 
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
-  num = Math.floor(Math.random() * 1046) + 1;
+  /*num = Math.floor(Math.random() * 1046) + 1;*/
+  num = Math.floor(Math.random() * 270) + 1;
 
   url = "https://api.jikan.moe/v3/top/manga/" + num;
-  console.log(url);
 
   app.request.json(url, function (dR) {
 
     rN = Math.floor(Math.random() * 50);
-    console.log(rN);
 
-        m = dR.top[rN].mal_id;
-        console.log(m);
+        m = dR.top[rN].mal_id;       
 
   //Aca se usa el ID ya generado para usar sus datos.
 
@@ -234,9 +235,7 @@ function randomButton() {
       var pManga = datosRecibidos.score;
 
       var v0 = $$('.p0').text();
-      console.log(v0);
       var v1 = $$('.p1').text();
-      console.log(v1);
 
       if (pManga < v0 || pManga >= v1) {
         console.log("No es es puntaje solicitado")
@@ -250,7 +249,6 @@ function randomButton() {
 
       //Url del Manga.
       lManga = datosRecibidos.url;
-      console.log(lManga);
 
       //Autor/es del Manga.
       var arrAuthors = datosRecibidos.authors.length;
@@ -264,14 +262,23 @@ function randomButton() {
       var arrGenres = datosRecibidos.genres.length;
       var gManga = "";
       $$('#gManga').html("");
+
       for(var i = 0; i < arrGenres; i++) {
         gManga = datosRecibidos.genres[i].name + " ";
         malId = datosRecibidos.genres[i].mal_id;
+        console.log(malId);
 
-        $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');
+        var chk = $$('input:checked').val();
+        console.log(chk);
+
+        $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
+
+        /*if (malId == chk) {
+          $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
+        }*/ 
 
         //Para excluir algunos generos.
-        /*if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
+        /*if (malId == 12 || malId == 33 || malId == "" || malId == 0 ||) {
           //console.log("Genero excluido");
 
           tManga = "";
@@ -289,6 +296,25 @@ function randomButton() {
           $$('#imgManga').attr('src',imgManga);
           return randomButton();
         }*/
+
+        if (malId != chk) {
+          //console.log("Genero excluido");
+
+          tManga = "";
+          gManga = "";
+          aManga = "";
+          pManga = "";
+          sManga = "";
+          imgManga = "";
+
+          $$('#sManga').html(sManga);
+          $$('#tManga').html(tManga);
+          $$('#gManga').html(gManga);
+          $$('#aManga').html(aManga);
+          $$('#pManga').html(pManga);
+          $$('#imgManga').attr('src',imgManga);
+          return randomButton();
+        }
       }
 
       $$('#imgManga').attr('src',imgManga);
@@ -309,4 +335,28 @@ function pFilterManga(e) {
       $$('.p0').text((range.value[0]));
       $$('.p1').text((range.value[1]));
 }
+
+/*function gCBManga(e) {
+
+        var totalChecked = $$('[name="demo-checkbox-movie"]:checked').length;
+        if (totalChecked === 0) {
+          $$('[name="demo-checkbox-movies"]').prop('checked', false);
+        } else if (totalChecked === 2) {
+          $$('[name="demo-checkbox-movies"]').prop('checked', true);
+        }
+        if (totalChecked === 1 || totalChecked === 2 || totalChecked === 3) {
+          $$('[name="demo-checkbox-movies"]').prop('indeterminate', true);
+        } else {
+          $$('[name="demo-checkbox-movies"]').prop('indeterminate', false);
+        }
+
+      // Parent checkbox change
+      $$('[name="demo-checkbox-movies"]').on('change', function (e) {
+        if (e.target.checked) {
+          $$('[name="demo-checkbox-movie"]').prop('checked', true);
+        } else {
+          $$('[name="demo-checkbox-movie"]').prop('checked', false);
+        }
+      });
+}*/
 
