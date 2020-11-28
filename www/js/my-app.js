@@ -209,6 +209,24 @@ function randomButton() {
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
   /*num = Math.floor(Math.random() * 1046) + 1;*/
+
+
+  var chk = $$('input:checked').val();
+  console.log(chk);
+
+  numA = Math.floor(Math.random() * 58) + 1;
+
+  urlA = 'https://api.jikan.moe/v3/search/manga?q=&page=' + numA + '&genre=1&order_by=score';
+  console.log(urlA);
+
+  app.request.json(urlA, function (adR) {
+
+    rN = Math.floor(Math.random() * 50);
+
+      m = adR.results[rN].mal_id;
+      console.log(m);
+
+
   num = Math.floor(Math.random() * 270) + 1;
 
   url = "https://api.jikan.moe/v3/top/manga/" + num;
@@ -217,111 +235,117 @@ function randomButton() {
 
     rN = Math.floor(Math.random() * 50);
 
-        m = dR.top[rN].mal_id;       
+        m = dR.top[rN].mal_id;
+        console.log(m);
+
+  if (chk == 1) {
+    m = adR.results[rN].mal_id;
+  } else {
+    m = dR.top[rN].mal_id;
+  }
 
   //Aca se usa el ID ya generado para usar sus datos.
 
   var url = 'https://api.jikan.moe/v3/manga/' + m;
+  console.log(url);
 
-  app.request.json(url, function (datosRecibidos) {
+    app.request.json(url, function (datosRecibidos) {
 
-      //Imagen del Manga.
-      imgManga = datosRecibidos.image_url;
+        //Imagen del Manga.
+        imgManga = datosRecibidos.image_url;
 
-      //Titulo del Manga.
-      tManga = datosRecibidos.title;
+        //Titulo del Manga.
+        tManga = datosRecibidos.title;
 
-      //Puntuación del Manga.
-      var pManga = datosRecibidos.score;
+        //Puntuación del Manga.
+        var pManga = datosRecibidos.score;
 
-      var v0 = $$('.p0').text();
-      var v1 = $$('.p1').text();
+        var v0 = $$('.p0').text();
+        var v1 = $$('.p1').text();
 
-      if (pManga < v0 || pManga >= v1) {
-        console.log("No es es puntaje solicitado")
-        return randomButton();
-      }
-
-      $$('#pManga').html(pManga);
-        
-      //Sinopsis del Manga.
-      sManga = datosRecibidos.synopsis;
-
-      //Url del Manga.
-      lManga = datosRecibidos.url;
-
-      //Autor/es del Manga.
-      var arrAuthors = datosRecibidos.authors.length;
-      var aManga = "";
-      for(var i = 0; i < arrAuthors; i++) {
-        aManga = datosRecibidos.authors[i].name + " ";
-        $$('#aManga').html(aManga);
-      }
-
-      //Genero/s del Manga.
-      var arrGenres = datosRecibidos.genres.length;
-      var gManga = "";
-      $$('#gManga').html("");
-
-      for(var i = 0; i < arrGenres; i++) {
-        gManga = datosRecibidos.genres[i].name + " ";
-        malId = datosRecibidos.genres[i].mal_id;
-        console.log(malId);
-
-        var chk = $$('input:checked').val();
-        console.log(chk);
-
-        $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
-
-        /*if (malId == chk) {
-          $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
-        }*/ 
-
-        //Para excluir algunos generos.
-        /*if (malId == 12 || malId == 33 || malId == "" || malId == 0 ||) {
-          //console.log("Genero excluido");
-
-          tManga = "";
-          gManga = "";
-          aManga = "";
-          pManga = "";
-          sManga = "";
-          imgManga = "";
-
-          $$('#sManga').html(sManga);
-          $$('#tManga').html(tManga);
-          $$('#gManga').html(gManga);
-          $$('#aManga').html(aManga);
-          $$('#pManga').html(pManga);
-          $$('#imgManga').attr('src',imgManga);
-          return randomButton();
-        }*/
-
-        if (malId != chk) {
-          //console.log("Genero excluido");
-
-          tManga = "";
-          gManga = "";
-          aManga = "";
-          pManga = "";
-          sManga = "";
-          imgManga = "";
-
-          $$('#sManga').html(sManga);
-          $$('#tManga').html(tManga);
-          $$('#gManga').html(gManga);
-          $$('#aManga').html(aManga);
-          $$('#pManga').html(pManga);
-          $$('#imgManga').attr('src',imgManga);
+        if (pManga < v0 || pManga >= v1) {
+          console.log("No es es puntaje solicitado")
           return randomButton();
         }
-      }
 
-      $$('#imgManga').attr('src',imgManga);
-      $$('#tManga').html(tManga);
-      $$('#sManga').html(sManga);
-      $$('#lManga').html(lManga);
-    }, fnError);
+        $$('#pManga').html(pManga);
+          
+        //Sinopsis del Manga.
+        sManga = datosRecibidos.synopsis;
+
+        //Url del Manga.
+        lManga = datosRecibidos.url;
+
+        //Autor/es del Manga.
+        var arrAuthors = datosRecibidos.authors.length;
+        var aManga = "";
+        for(var i = 0; i < arrAuthors; i++) {
+          aManga = datosRecibidos.authors[i].name + " ";
+          $$('#aManga').html(aManga);
+        }
+
+        //Genero/s del Manga.
+        var arrGenres = datosRecibidos.genres.length;
+        var gManga = "";
+        $$('#gManga').html("");
+
+        for(var i = 0; i < arrGenres; i++) {
+          gManga = datosRecibidos.genres[i].name + " ";
+          malId = datosRecibidos.genres[i].mal_id;
+          console.log(malId);
+
+          $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
+
+          /*if (malId == chk) {
+            $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
+          }*/ 
+
+          //Para excluir algunos generos.
+          /*if (malId == 12 || malId == 33 || malId == "" || malId == 0 ||) {
+            //console.log("Genero excluido");
+
+            tManga = "";
+            gManga = "";
+            aManga = "";
+            pManga = "";
+            sManga = "";
+            imgManga = "";
+
+            $$('#sManga').html(sManga);
+            $$('#tManga').html(tManga);
+            $$('#gManga').html(gManga);
+            $$('#aManga').html(aManga);
+            $$('#pManga').html(pManga);
+            $$('#imgManga').attr('src',imgManga);
+            return randomButton();
+          }*/
+
+          /*if (malId != chk) {
+            //console.log("Genero excluido");
+
+            tManga = "";
+            gManga = "";
+            aManga = "";
+            pManga = "";
+            sManga = "";
+            imgManga = "";
+
+            $$('#sManga').html(sManga);
+            $$('#tManga').html(tManga);
+            $$('#gManga').html(gManga);
+            $$('#aManga').html(aManga);
+            $$('#pManga').html(pManga);
+            $$('#imgManga').attr('src',imgManga);
+            return randomButton();
+          }*/
+        }
+
+        $$('#imgManga').attr('src',imgManga);
+        $$('#tManga').html(tManga);
+        $$('#sManga').html(sManga);
+        $$('#lManga').html(lManga);
+      }, fnError);
+    });
   });
 }
 
