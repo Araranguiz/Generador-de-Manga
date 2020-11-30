@@ -39,6 +39,37 @@ var userName, name, email, photoUrl, uid, emailVerified;
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
+
+/*$$(document).on('change', function() {
+  var arr = [];
+  var chk = $$('input[type="checkbox"]:checked');
+
+  for (var i = 0; i < chk.length; i++) {
+  var b = arr.push(chk[i].value);
+
+  console.log(arr);
+
+  switch (b) {
+      case 1:
+        console.log('El valor es 1');
+        break;
+      case 2:
+        console.log('El valor es 2');
+        break;
+      case 3:
+        console.log('El valor es 3');
+        break;
+      case 4:
+        console.log('El valor es 4');
+        break;
+      default:
+        //
+    }
+
+  }
+});
+*/
+
     /*$$('[name="demo-checkbox-movie"]').on('change', gCBManga);*/
 
     $$('#pfilter').on('range:change', pFilterManga);
@@ -206,13 +237,36 @@ function logOut() {
 
 function randomButton() {
 
+
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
-  /*num = Math.floor(Math.random() * 1046) + 1;*/
+  /*num = Math.floor(Math.random() * 1046) + 1;
+
+  numAA = Math.floor(Math.random() * 34) + 1;
+
+  urlAA = 'https://api.jikan.moe/v3/search/manga?q=&page=' + numAA + '&genre=1,2&order_by=score';
+  console.log(urlAA);
+
+  app.request.json(urlAA, function (aadR) {
+
+    rN = Math.floor(Math.random() * 50);
+
+      m = aadR.results[rN].mal_id;
+      console.log(m);
 
 
-  var chk = $$('input:checked').val();
-  console.log(chk);
+  numAd = Math.floor(Math.random() * 62) + 1;
+
+  urlAd = 'https://api.jikan.moe/v3/search/manga?q=&page=' + numAd + '&genre=2&order_by=score';
+  console.log(urlAd);
+
+  app.request.json(urlAd, function (advdR) {
+
+    rN = Math.floor(Math.random() * 50);
+
+      m = advdR.results[rN].mal_id;
+      console.log(m);
+*/
 
   numA = Math.floor(Math.random() * 58) + 1;
 
@@ -238,11 +292,43 @@ function randomButton() {
         m = dR.top[rN].mal_id;
         console.log(m);
 
-  if (chk == 1) {
+
+  /*if (chk == 1) {
     m = adR.results[rN].mal_id;
+  } else if (chk == 2) {
+    m = advdR.results[rN].mal_id;
   } else {
     m = dR.top[rN].mal_id;
-  }
+  }*/
+
+    // find elements
+$$(document).on('change', function() {
+    var valueArray = [];
+    $$('input[type=checkbox]:checked').each(function() {
+        var val = $$(this).val();
+        valueArray.push(val);
+
+        switch (val) {
+            case 1:
+                m = adR.results[rN].mal_id;
+                console.log(val);
+                break;
+            case 2:
+                console.log(val);
+                break;
+            case 3:
+                console.log(val);
+                break;
+            case 4:
+                console.log(val);
+                break;
+            default:
+                m = dR.top[rN].mal_id;
+                console.log(val);
+        }
+    });
+});
+
 
   //Aca se usa el ID ya generado para usar sus datos.
 
@@ -298,10 +384,10 @@ function randomButton() {
 
           /*if (malId == chk) {
             $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
-          }*/ 
+          }
 
           //Para excluir algunos generos.
-          /*if (malId == 12 || malId == 33 || malId == "" || malId == 0 ||) {
+          if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
             //console.log("Genero excluido");
 
             tManga = "";
@@ -318,9 +404,9 @@ function randomButton() {
             $$('#pManga').html(pManga);
             $$('#imgManga').attr('src',imgManga);
             return randomButton();
-          }*/
+          }
 
-          /*if (malId != chk) {
+          if (malId != chk) {
             //console.log("Genero excluido");
 
             tManga = "";
@@ -345,8 +431,11 @@ function randomButton() {
         $$('#sManga').html(sManga);
         $$('#lManga').html(lManga);
       }, fnError);
+
     });
   });
+//});
+
 }
 
 function fnError() {
