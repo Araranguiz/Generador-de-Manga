@@ -13,6 +13,9 @@ var app = new Framework7({
     panel: {
       swipe: 'left',
     },
+    toolbar: {
+      hideOnPageScroll: true,
+    },
     // Add default routes
     routes: [
       {
@@ -27,9 +30,14 @@ var app = new Framework7({
         path: '/user/',
         url: 'user.html',
       },
+      {
+        path: '/search/',
+        url: 'search.html',
+      },
     ]
     // ... other parameters
   });
+
 
 var mainView = app.views.create('.view-main');
 
@@ -39,40 +47,8 @@ var userName, name, email, photoUrl, uid, emailVerified;
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
-
-/*$$(document).on('change', function() {
-  var arr = [];
-  var chk = $$('input[type="checkbox"]:checked');
-
-  for (var i = 0; i < chk.length; i++) {
-  var b = arr.push(chk[i].value);
-
-  console.log(arr);
-
-  switch (b) {
-      case 1:
-        console.log('El valor es 1');
-        break;
-      case 2:
-        console.log('El valor es 2');
-        break;
-      case 3:
-        console.log('El valor es 3');
-        break;
-      case 4:
-        console.log('El valor es 4');
-        break;
-      default:
-        //
-    }
-
-  }
-});
-*/
-
-    /*$$('[name="demo-checkbox-movie"]').on('change', gCBManga);*/
-
     $$('#pfilter').on('range:change', pFilterManga);
+    $$('#yfilter').on('range:change', yFilterManga);
 
     $$('#btnR').on('click', randomButton);
 
@@ -137,12 +113,19 @@ $$(document).on('page:init', '.page[data-name="register"]', function (e) {
 $$(document).on('page:init', '.page[data-name="index"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     $$('#log').on('click', logIn);
+
+
 });
 
 $$(document).on('page:init', '.page[data-name="user"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     $$('#lgout').on('click', logOut);
 
+});
+
+$$(document).on('page:init', '.page[data-name="search"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('#btnSearch').on('click', searchManga);
 });
 
 function registerUser() {
@@ -237,49 +220,7 @@ function logOut() {
 
 function randomButton() {
 
-
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
-
-  /*num = Math.floor(Math.random() * 1046) + 1;
-
-  numAA = Math.floor(Math.random() * 34) + 1;
-
-  urlAA = 'https://api.jikan.moe/v3/search/manga?q=&page=' + numAA + '&genre=1,2&order_by=score';
-  console.log(urlAA);
-
-  app.request.json(urlAA, function (aadR) {
-
-    rN = Math.floor(Math.random() * 50);
-
-      m = aadR.results[rN].mal_id;
-      console.log(m);
-
-
-  numAd = Math.floor(Math.random() * 62) + 1;
-
-  urlAd = 'https://api.jikan.moe/v3/search/manga?q=&page=' + numAd + '&genre=2&order_by=score';
-  console.log(urlAd);
-
-  app.request.json(urlAd, function (advdR) {
-
-    rN = Math.floor(Math.random() * 50);
-
-      m = advdR.results[rN].mal_id;
-      console.log(m);
-*/
-
-  numA = Math.floor(Math.random() * 58) + 1;
-
-  urlA = 'https://api.jikan.moe/v3/search/manga?q=&page=' + numA + '&genre=1&order_by=score';
-  console.log(urlA);
-
-  app.request.json(urlA, function (adR) {
-
-    rN = Math.floor(Math.random() * 50);
-
-      m = adR.results[rN].mal_id;
-      console.log(m);
-
 
   num = Math.floor(Math.random() * 270) + 1;
 
@@ -287,48 +228,12 @@ function randomButton() {
 
   app.request.json(url, function (dR) {
 
-    rN = Math.floor(Math.random() * 50);
+    topLength = dR.top.length;
+
+    rN = Math.floor(Math.random() * topLength);
 
         m = dR.top[rN].mal_id;
         console.log(m);
-
-
-  /*if (chk == 1) {
-    m = adR.results[rN].mal_id;
-  } else if (chk == 2) {
-    m = advdR.results[rN].mal_id;
-  } else {
-    m = dR.top[rN].mal_id;
-  }*/
-
-    // find elements
-$$(document).on('change', function() {
-    var valueArray = [];
-    $$('input[type=checkbox]:checked').each(function() {
-        var val = $$(this).val();
-        valueArray.push(val);
-
-        switch (val) {
-            case 1:
-                m = adR.results[rN].mal_id;
-                console.log(val);
-                break;
-            case 2:
-                console.log(val);
-                break;
-            case 3:
-                console.log(val);
-                break;
-            case 4:
-                console.log(val);
-                break;
-            default:
-                m = dR.top[rN].mal_id;
-                console.log(val);
-        }
-    });
-});
-
 
   //Aca se usa el ID ya generado para usar sus datos.
 
@@ -343,6 +248,9 @@ $$(document).on('change', function() {
         //Titulo del Manga.
         tManga = datosRecibidos.title;
 
+        //Tipo de Manga.
+        tyManga = datosRecibidos.type;
+
         //Puntuación del Manga.
         var pManga = datosRecibidos.score;
 
@@ -350,7 +258,9 @@ $$(document).on('change', function() {
         var v1 = $$('.p1').text();
 
         if (pManga < v0 || pManga >= v1) {
-          console.log("No es es puntaje solicitado")
+          console.log("No es el puntaje solicitado");
+          pManga = "";
+          $$('#pManga').html(pManga);
           return randomButton();
         }
 
@@ -358,6 +268,19 @@ $$(document).on('change', function() {
           
         //Sinopsis del Manga.
         sManga = datosRecibidos.synopsis;
+
+        //Año del Manga.
+        var yManga = datosRecibidos.published.prop.from.year;
+
+        var y1 = $$('.y1').text();
+        var y2 = $$('.y2').text();
+
+        if (yManga < y1 || yManga >= y2 || yManga == null) {
+          console.log("No es el año solicitado")
+          pManga = "";
+          $$('#pManga').html(pManga);
+          return randomButton();
+        }
 
         //Url del Manga.
         lManga = datosRecibidos.url;
@@ -378,9 +301,9 @@ $$(document).on('change', function() {
         for(var i = 0; i < arrGenres; i++) {
           gManga = datosRecibidos.genres[i].name + " ";
           malId = datosRecibidos.genres[i].mal_id;
-          console.log(malId);
+          //console.log(malId);
 
-          $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
+          $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white" id="idManga' + malId + '">' + gManga + '</div>');    
 
           /*if (malId == chk) {
             $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white idManga" id="idManga' + malId + '">' + gManga + '</div>');    
@@ -428,14 +351,13 @@ $$(document).on('change', function() {
 
         $$('#imgManga').attr('src',imgManga);
         $$('#tManga').html(tManga);
+        $$('#tyManga').html(tyManga);
         $$('#sManga').html(sManga);
         $$('#lManga').html(lManga);
+        $$('#yManga').html(yManga);
       }, fnError);
 
     });
-  });
-//});
-
 }
 
 function fnError() {
@@ -447,6 +369,42 @@ function pFilterManga(e) {
   var range = app.range.get(e.target);
       $$('.p0').text((range.value[0]));
       $$('.p1').text((range.value[1]));
+}
+
+function yFilterManga(e) {
+  var range = app.range.get(e.target);
+      $$('.y1').text((range.value[0]));
+      $$('.y2').text((range.value[1]));
+}
+
+function searchManga() {
+
+      for (var i = 0; i < 27; i++) {
+        $$('#containerSearchLetter').append('hola');
+      }
+
+  var url = 'https://api.jikan.moe/v3/search/manga?q=&page=1&letter=A';
+
+    app.request.json(url, function (searchDataLetterA) {
+
+      /*var r = searchDataLetterA.results.length;
+      //var titleA = "";
+      var searchImgA = "";
+      //$$('#searchTitleA').html("");
+      //$$('#searchImgA').attr('src', "");
+
+      for (var i = 0; i < r; i++) {
+        //titleA = searchDataLetterA.results[i].title + "<br>";
+        searchImgA = searchDataLetterA.results[i].image_url;
+        //$$('#searchTitleA').append(titleA);
+        //$$('#searchImgA').attr('src', searchImgA);
+        $$('#containerSearchImgA').append('<img src="" id="searchImgA' + i + '" /><br>');
+        $$('#searchImgA' + i).attr('src', searchImgA);
+      }
+      $$('#containerSearchImgA').append('<button id="btnSearchA' + 2 + '">Mostrar más</button>');
+*/
+    });
+
 }
 
 /*function gCBManga(e) {

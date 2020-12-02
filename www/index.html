@@ -39,14 +39,24 @@
             <div data-name="index" class="page">
     
                 <!-- Top Navbar -->
-                <!--<div class="navbar">
+                <div class="navbar">
                     <div class="navbar-bg"></div>
                     <div class="navbar-inner">
                         <div class="left"><i class="icon icon-back"></i></div>
                         <div class="title">Page Title</div>
                         <div class="right"><i class="icon icon-forward"></i></div>
                     </div>
-                </div>-->
+                </div>
+
+                <!-- Toolbar -->
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                    <!-- Toolbar links -->
+                    <a href="#" class="link">Inicio</a>
+                    <a href="#" class="link">Link 2</a>
+                    <a href="/search/" id="btnSearch" class="link">Buscador</a>
+                    </div>
+                </div>
         
                 <!-- Scrollable page content -->
                 
@@ -81,6 +91,34 @@
                             </li>
                           </ul>
                         </div>
+
+                        <div class="list simple-list">
+                          <ul>
+                            <li class="item-row">
+                              <div class="item-cell width-auto flex-shrink-0">
+                                <span class="y1">1940</span>
+                              </div>
+                              <div class="item-cell item-cell-shrink-3">
+                                <!-- Dual range slider with all the parameters passed via data- attributes -->
+                                <div
+                                  id="yfilter"
+                                  class="range-slider range-slider-init color-green"
+                                  data-label="true"
+                                  data-dual="true"
+                                  data-min="1940"
+                                  data-max="2020"
+                                  data-step="1"
+                                  data-value-left="1940"
+                                  data-value-right="2020"
+                                ></div>
+                              </div>
+                              <div class="item-cell width-auto flex-shrink-0">
+                                <span class="y2">2020</span>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
                         <!--
                         <div class="list">
                           <ul>
@@ -103,12 +141,12 @@
                           </ul>
                         </div>
                         -->
-
+                        <!--
                         <input type="checkbox" name="checkbox" value="1" />
                         <input type="checkbox" name="checkbox" value="2" />
                         <input type="checkbox" name="checkbox" value="3" />
                         <input type="checkbox" name="checkbox" value="4" />
-
+                        -->
                         <!--<div class="list">
                           <ul>
                             <li>
@@ -124,9 +162,13 @@
                         </div>
                         -->
 
+
+
                         <div class="col-50">
-                            <h1 id="tManga"></h1>
+                            <h1 id="tManga"></h1>  
                             <h2 id="aManga"></h2>
+                            <p id="tyManga"></p>
+                            <p id="yManga"></p>
                             <img src="" id="imgManga" />
                             <div class="row" id="gManga"></div>
                             <h3 id="pManga"></h3>
@@ -168,6 +210,7 @@
                     </div>
                 </div>
             -->
+
             </div>
         </div>
     </div>
