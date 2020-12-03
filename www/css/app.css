@@ -110,3 +110,7 @@ body {
 li {
   list-style-type: none;
 }
+
+.md {
+--f7-input-placeholder-color: rgba(255, 255, 255, 0.35);
+}

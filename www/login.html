@@ -1,5 +1,5 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
-<div class="page" data-name="register">
+<div class="page" data-name="login">
     <div class="navbar">
         <div class="navbar-inner sliding">
         <div class="left">
@@ -8,34 +8,28 @@
             <span class="ios-only">Back</span>
             </a>
         </div>
-        <div class="title">Registro</div>
+        <div class="title">Inicio de Sesión</div>
         </div>
     </div>
 
                       <div class="page-content">
                           <div class="block">
                                     <div class="page-content login-screen-content">
+                                      <div class="login-screen-title">Random Manga Generator</div>
                                       <form>
                                         <div class="list">
                                           <ul>
                                             <li class="item-content item-input">
                                               <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                  <input id="regUser" type="text" name="user" placeholder="Usuario" required validate>
+                                                  <input id="logEmail" type="email" name="email" placeholder="E-mail" required validate>
                                                 </div>
                                               </div>
                                             </li>
                                             <li class="item-content item-input">
                                               <div class="item-inner">
                                                 <div class="item-input-wrap">
-                                                  <input id="regEmail" type="email" name="email" placeholder="E-mail" required validate>
-                                                </div>
-                                              </div>
-                                            </li>
-                                            <li class="item-content item-input">
-                                              <div class="item-inner">
-                                                <div class="item-input-wrap">
-                                                  <input id="regPass" type="password" name="pass" placeholder="Contraseña" required validate>
+                                                  <input id="logPass" type="password" name="pass" placeholder="Contraseña" required validate>
                                                 </div>
                                               </div>
                                             </li>
@@ -43,9 +37,10 @@
                                         </div>
                                         <div class="list">
                                           <ul>
-                                            <div id="reg" class="col button button-fill"><a class="button convert-form-to-data">Registrarse</a></div>
+                                            <li id="log" class="button button-fill"><a class="button convert-form-to-data">Ingresar</a></li>
+
+                                            <li class="col"><a class="button convert-form-to-data" href="/register/">Registrarse</a></li>
                                           </ul>
-                                        </div>
                                       </form>
                                     </div>
                           </div>

@@ -37,89 +37,38 @@
         <div class="view view-main">
             <!-- Initial Page, "data-name" contains page name -->
             <div data-name="index" class="page">
-    
-                <!-- Top Navbar -->
-                <div class="navbar">
-                    <div class="navbar-bg"></div>
-                    <div class="navbar-inner">
-                        <div class="left"><i class="icon icon-back"></i></div>
-                        <div class="title">Page Title</div>
-                        <div class="right"><i class="icon icon-forward"></i></div>
-                    </div>
-                </div>
-
-                <!-- Toolbar -->
-                <div class="toolbar toolbar-bottom">
-                    <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Inicio</a>
-                    <a href="#" class="link">Link 2</a>
-                    <a href="/search/" id="btnSearch" class="link">Buscador</a>
-                    </div>
-                </div>
         
                 <!-- Scrollable page content -->
                 
                 <div class="page-content">
+                  <div class="block">
+
+                    <button class="col button button-fill button-round color-blue text-color-white" id="btnRv" type="button">Random Manga</button>
+                        <div class="col-50">
+                            <h1 id="tManga"></h1>  
+                            <h2 id="aManga"></h2>
+                            <p id="tyManga"></p>
+                            <p id="yManga"></p>
+                            <img src="" id="imgManga" />
+                            <div class="row" id="gManga"></div>
+                            <h3 id="pManga"></h3>
+                            <p id="sManga"></p>
+                            <!--<p id="lManga"></p>-->
+                        </br>
+                        </div>
+
+                        <div class="page-content">
+                            <div class="block">
+                            <p>
+                              <li class="col"><a class="button convert-form-to-data" href="/login/">Iniciar Sesión</a></li>
+                            </p>
+                          </div>
+                        </div>
+
+                <!-- <div class="page-content">
                     <div class="block">
-                        
-                        <button class="col button button-fill button-round color-blue text-color-white" id="btnR" type="button">Random Manga</button>
 
-                        <div class="list simple-list">
-                          <ul>
-                            <li class="item-row">
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="p0">0</span>
-                              </div>
-                              <div class="item-cell item-cell-shrink-3">
-                                <!-- Dual range slider with all the parameters passed via data- attributes -->
-                                <div
-                                  id="pfilter"
-                                  class="range-slider range-slider-init color-green"
-                                  data-label="true"
-                                  data-dual="true"
-                                  data-min="0"
-                                  data-max="10"
-                                  data-step="1"
-                                  data-value-left="0"
-                                  data-value-right="10"
-                                ></div>
-                              </div>
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="p1">10</span>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="list simple-list">
-                          <ul>
-                            <li class="item-row">
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="y1">1940</span>
-                              </div>
-                              <div class="item-cell item-cell-shrink-3">
-                                <!-- Dual range slider with all the parameters passed via data- attributes -->
-                                <div
-                                  id="yfilter"
-                                  class="range-slider range-slider-init color-green"
-                                  data-label="true"
-                                  data-dual="true"
-                                  data-min="1940"
-                                  data-max="2020"
-                                  data-step="1"
-                                  data-value-left="1940"
-                                  data-value-right="2020"
-                                ></div>
-                              </div>
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="y2">2020</span>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <!--
+                       
                         <div class="list">
                           <ul>
                             <li>
@@ -161,29 +110,12 @@
                           </ul>
                         </div>
                         -->
-
-
-
-                        <div class="col-50">
-                            <h1 id="tManga"></h1>  
-                            <h2 id="aManga"></h2>
-                            <p id="tyManga"></p>
-                            <p id="yManga"></p>
-                            <img src="" id="imgManga" />
-                            <div class="row" id="gManga"></div>
-                            <h3 id="pManga"></h3>
-                            <p id="sManga"></p>
-                            <!--<p id="lManga"></p>-->
-                        </br>
-                        </div>
-
-                       <!-- 
+<!--
                         <form class="list">
                           <ul>
                             <li>
                               <div class="item-content item-input">
                                 <div class="item-inner">
-                                  <div class="item-title item-label">E-mail</div>
                                   <div class="item-input-wrap">
                                     <input id="logEmail" type="email" name="email" placeholder="E-mail" required validate>
                                   </div>
@@ -193,7 +125,6 @@
                             <li>
                               <div class="item-content item-input">
                                 <div class="item-inner">
-                                  <div class="item-title item-label">Contraseña</div>
                                   <div class="item-input-wrap">
                                     <input id="logPass" type="password" name="pass" placeholder="Contraseña" required validate>
                                   </div>
@@ -202,15 +133,12 @@
                             </li>
                           </ul>
                         </form>
-                        <div class="block block-strong row">
                           <div id="log" class="col button button-fill"><a class="button convert-form-to-data">Ingresar</a></div>
-                        </div>
                         <div class="col"><a class="button convert-form-to-data" href="/register/">Registrarse</a></div>
                     
                     </div>
                 </div>
-            -->
-
+-->
             </div>
         </div>
     </div>

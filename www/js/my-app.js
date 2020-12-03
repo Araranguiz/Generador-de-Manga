@@ -23,12 +23,20 @@ var app = new Framework7({
         url: 'index.html',
       },
       {
+        path: '/login/',
+        url: 'login.html',
+      },
+      {
         path: '/register/',
         url: 'register.html',
       },
       {
         path: '/user/',
         url: 'user.html',
+      },
+      {
+        path: '/random/',
+        url: 'random.html',
       },
       {
         path: '/search/',
@@ -46,13 +54,54 @@ var userName, name, email, photoUrl, uid, emailVerified;
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
+});
 
+// Option 1. Using one 'page:init' handler for all pages
+$$(document).on('page:init', function (e) {
+    // Do something here when page loaded and initialized
+})
+
+// Option 2. Using live 'page:init' event handlers for each page
+$$(document).on('page:init', '.page[data-name="login"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('#log').on('click', logIn);
+    $$('#log').on('click', userIn);
+});
+
+// Option 2. Using live 'page:init' event handlers for each page
+$$(document).on('page:init', '.page[data-name="register"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('#reg').on('click', registerUser);
+    $$('#reg').on('click', uName);
+
+});
+
+$$(document).on('page:init', '.page[data-name="index"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('#btnRv').on('click', randomButtonV);
+});
+
+$$(document).on('page:init', '.page[data-name="user"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('#lgout').on('click', logOut);
+});
+
+$$(document).on('page:init', '.page[data-name="random"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('.link').on('click', searchManga);
     $$('#pfilter').on('range:change', pFilterManga);
     $$('#yfilter').on('range:change', yFilterManga);
+    $$('#btnRu').on('click', randomButtonU);
+});
 
-    $$('#btnR').on('click', randomButton);
+$$(document).on('page:init', '.page[data-name="search"]', function (e) {
+    // Do something here when page with data-name="about" attribute loaded and initialized
+    $$('.link').on('click', searchManga);
+});
 
-    firebase.auth().onAuthStateChanged(function(user) {
+function userIn() {
+
+firebase.auth().onAuthStateChanged(function(user) {
 
               if (user) {
                 // User is signed in.
@@ -62,6 +111,7 @@ $$(document).on('deviceready', function() {
                 var docRef = db.collection("Usuarios").doc(claveDeColeccion);
 
                 docRef.get().then(function(doc) {
+                    $$('#userInfo').html("");
                     if (doc.exists) {
                         console.log("Document data:", doc.data().nombre);
                         var n = doc.data().nombre;
@@ -95,38 +145,7 @@ $$(document).on('deviceready', function() {
               }
             });
 
-});
-
-// Option 1. Using one 'page:init' handler for all pages
-$$(document).on('page:init', function (e) {
-    // Do something here when page loaded and initialized
-})
-
-// Option 2. Using live 'page:init' event handlers for each page
-$$(document).on('page:init', '.page[data-name="register"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    $$('#reg').on('click', registerUser);
-    $$('#reg').on('click', uName);
-
-});
-
-$$(document).on('page:init', '.page[data-name="index"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    $$('#log').on('click', logIn);
-
-
-});
-
-$$(document).on('page:init', '.page[data-name="user"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    $$('#lgout').on('click', logOut);
-
-});
-
-$$(document).on('page:init', '.page[data-name="search"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    $$('#btnSearch').on('click', searchManga);
-});
+}
 
 function registerUser() {
 
@@ -141,7 +160,7 @@ function registerUser() {
 
                     .then(function(){
                         alert("Registro completado!");
-                        app.views.main.router.navigate('/index/');
+                        app.views.main.router.navigate('/login/');
                     })
 
 
@@ -218,7 +237,110 @@ function logOut() {
             });
     }
 
-function randomButton() {
+function randomButtonV() {
+
+  //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
+
+  num = Math.floor(Math.random() * 1047) + 1;
+
+  url = "https://api.jikan.moe/v3/top/manga/" + num;
+
+  app.request.json(url, function (dR) {
+
+    topLength = dR.top.length;
+
+    rN = Math.floor(Math.random() * topLength);
+
+        m = dR.top[rN].mal_id;
+        console.log(m);
+
+  //Aca se usa el ID ya generado para usar sus datos.
+
+  var url = 'https://api.jikan.moe/v3/manga/' + m;
+  console.log(url);
+
+    app.request.json(url, function (datosRecibidos) {
+
+        //Imagen del Manga.
+        imgManga = datosRecibidos.image_url;
+
+        //Titulo del Manga.
+        tManga = datosRecibidos.title;
+
+        //Tipo de Manga.
+        tyManga = datosRecibidos.type;
+
+        //Puntuación del Manga.
+        pManga = datosRecibidos.score;
+          
+        //Sinopsis del Manga.
+        sManga = datosRecibidos.synopsis;
+
+        //Año del Manga.
+        yManga = datosRecibidos.published.prop.from.year;
+
+        //Url del Manga.
+        lManga = datosRecibidos.url;
+
+        //Autor/es del Manga.
+        var arrAuthors = datosRecibidos.authors.length;
+        var aManga = "";
+        for(var i = 0; i < arrAuthors; i++) {
+          aManga = datosRecibidos.authors[i].name + " ";
+          $$('#aManga').html(aManga);
+        }
+
+        //Genero/s del Manga.
+        var arrGenres = datosRecibidos.genres.length;
+        var gManga = "";
+        $$('#gManga').html("");
+
+        for(var i = 0; i < arrGenres; i++) {
+          gManga = datosRecibidos.genres[i].name + " ";
+          malId = datosRecibidos.genres[i].mal_id;
+          //console.log(malId);
+
+          $$('#gManga').append('<div class="col-40 button button-outline button-round button-raised color-red text-color-white" id="idManga' + malId + '">' + gManga + '</div>');    
+
+          //Para excluir algunos generos.
+          if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
+            //console.log("Genero excluido");
+
+            tManga = "";
+            gManga = "";
+            aManga = "";
+            pManga = "";
+            sManga = "";
+            imgManga = "";
+
+            $$('#sManga').html(sManga);
+            $$('#tManga').html(tManga);
+            $$('#gManga').html(gManga);
+            $$('#aManga').html(aManga);
+            $$('#pManga').html(pManga);
+            $$('#imgManga').attr('src',imgManga);
+            return randomButtonV();
+          }
+        }
+
+        $$('#pManga').html(pManga);
+        $$('#imgManga').attr('src',imgManga);
+        $$('#tManga').html(tManga);
+        $$('#tyManga').html(tyManga);
+        $$('#sManga').html(sManga);
+        $$('#lManga').html(lManga);
+        $$('#yManga').html(yManga);
+      }, fnErrorV);
+
+    });
+}
+
+function fnErrorV() {
+  console.log("Solo entra acá si no funciona");
+  return randomButtonV();
+}
+
+function randomButtonU() {
 
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
@@ -261,7 +383,7 @@ function randomButton() {
           console.log("No es el puntaje solicitado");
           pManga = "";
           $$('#pManga').html(pManga);
-          return randomButton();
+          return randomButtonU();
         }
 
         $$('#pManga').html(pManga);
@@ -279,7 +401,7 @@ function randomButton() {
           console.log("No es el año solicitado")
           pManga = "";
           $$('#pManga').html(pManga);
-          return randomButton();
+          return randomButtonU();
         }
 
         //Url del Manga.
@@ -355,14 +477,14 @@ function randomButton() {
         $$('#sManga').html(sManga);
         $$('#lManga').html(lManga);
         $$('#yManga').html(yManga);
-      }, fnError);
+      }, fnErrorU);
 
     });
 }
 
-function fnError() {
+function fnErrorU() {
   console.log("Solo entra acá si no funciona");
-  return randomButton();
+  return randomButtonU();
 }
 
 function pFilterManga(e) {
