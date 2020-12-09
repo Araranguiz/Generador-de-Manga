@@ -20,6 +20,10 @@
     <meta name="theme-color" content="#2196f3">
     <!-- Your app title -->
     <title>My App</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
     <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
     <!-- Path to icons -->
@@ -43,8 +47,25 @@
                 <div class="page-content">
                   <div class="block">
 
-                    <button class="col button button-fill button-round color-blue text-color-white" id="btnRv" type="button">Random Manga</button>
-                        <div class="col-50">
+                    
+                              <div id="loadM"></div>
+
+                              <div class="block">
+                                <div class="row">
+                                  <div class="col-100 medium-50">
+                                    <img src="" id="imgManga" />
+                                    <h1 id="tManga"></h1>
+                                    <h2 id="aManga"></h2>
+                                    <p class="addReadMore showlesscontent" id="sManga"></p>
+                                  </div>
+                                  <div class="swiper-container swiper-init demo-swiper">
+                                    <div class="swiper-wrapper" id="gManga">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                        <!--<div class="col-50">
                             <h1 id="tManga"></h1>  
                             <h2 id="aManga"></h2>
                             <p id="tyManga"></p>
@@ -53,9 +74,24 @@
                             <div class="row" id="gManga"></div>
                             <h3 id="pManga"></h3>
                             <p id="sManga"></p>
-                            <!--<p id="lManga"></p>-->
+                            <p id="lManga"></p>
                         </br>
-                        </div>
+                        </div>-->
+
+                        <!--<div class="menu">
+                          <div class="menu-inner">
+                            <div class="menu-item menu-item-dropdown">
+                              <div class="menu-item-content">Center</div>
+                              <div class="menu-dropdown menu-dropdown-center">
+                                <div class="menu-dropdown-content">
+                                  <a href="#" class="menu-dropdown-link menu-close">Menu Item 1</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>-->
+
+                        <button class="col button button-fill button-round color-blue text-color-white open-preloader-indicator" id="btnRv" type="button">Random Manga</button>                      
 
                         <div class="page-content">
                             <div class="block">
@@ -64,6 +100,7 @@
                             </p>
                           </div>
                         </div>
+
 
                 <!-- <div class="page-content">
                     <div class="block">
@@ -142,6 +179,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>

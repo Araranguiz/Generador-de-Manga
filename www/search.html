@@ -1,38 +1,36 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
 <div class="page" data-name="search">
     <div class="navbar">
-        <div class="navbar-inner sliding">
-        <div class="left"></div>
+        <div class="navbar-bg"></div>
+        <div class="navbar-inner">
+            <div class="right"></div>
+            <div class="title">Buscador</div>
+            <div class="right"></div>
+            <a class="button sheet-open" href="#" data-sheet=".my-sheet-swipe-to-close">
+                <i class="material-icons">search</i>
+            </a>
         </div>
     </div>
 
-                <!-- Top Navbar -->
-                <div class="navbar">
-                    <div class="navbar-inner sliding">
-                    <div class="left">
-                    </div>
-                    <div class="title">Buscador</div>
-                    </div>
-                </div>
+    <!-- Toolbar -->
+    <div class="toolbar toolbar-bottom">
+        <div class="toolbar-inner">
+            <!-- Toolbar links -->
+            <a class="button sheet-open" href="/user/">
+                <i class="material-icons">home</i>
+            </a>
+            <a class="button sheet-open" href="/random/"> Random </a>
+            <a class="button sheet-open" href="#">
+                <i class="material-icons">search</i>
+            </a>
+        </div>
+    </div>
 
+    <div class="page-content">
+        <div class="block">
 
-                <!-- Toolbar -->
-                <div class="toolbar toolbar-bottom">
-                    <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="/user/" class="link">Inicio</a>
-                    <a href="/random/" class="link">Random</a>
-                    <a href="#" class="link">Buscador</a>
-                    </div>
-                </div>
+            <div id="containerSearchLetter"></div>
+            
+            <div id="containerSearch"></div>
 
-                <div class="page-content">
-                    <div class="block">
-
-                        <div id="containerSearchLetter"></div>
-                        
-                        <div id="searchTitleA"></div>
-                        <div id="containerSearchImgA"></div>                        
-                    </div>
-                </div>       
-</div>
+    </div>

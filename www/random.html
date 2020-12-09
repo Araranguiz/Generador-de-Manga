@@ -1,26 +1,31 @@
 <!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
 <div class="page" data-name="random">
     <div class="navbar">
-        <div class="navbar-inner sliding">
-        <div class="left"></div>
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner">
+        <div class="right">
+          <a class="button sheet-open" href="#" data-sheet=".my-sheet-swipe-to-close">
+            <i class="material-icons">filter_list</i>
+          </a>
         </div>
+        <div class="title">Random Manga</div>
+        <div class="right"></div>
+      </div>
     </div>
-
-                <!-- Top Navbar -->
-                <div class="navbar">
-                    <div class="navbar-bg"></div>
-                    <div class="navbar-inner">
-                        <div class="title">Random Manga</div>
-                    </div>
-                </div>
 
                 <!-- Toolbar -->
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
                     <!-- Toolbar links -->
-                    <a href="/user/" class="link">Inicio</a>
-                    <a href="#" class="link">Random</a>
-                    <a href="/search/" class="link">Buscador</a>
+                    <a class="button sheet-open" href="/user/">
+                        <i class="material-icons">home</i>
+                    </a>
+                    <a class="button sheet-open" href="#">
+                        Random
+                    </a>
+                    <a class="button sheet-open" href="/search/">
+                        <i class="material-icons">search</i>
+                    </a>
                     </div>
                 </div>
                 
@@ -29,60 +34,65 @@
 
                         <button class="col button button-fill button-round color-blue text-color-white" id="btnRu" type="button">Random Manga</button>
 
-                        <div class="list simple-list">
-                          <ul>
-                            <li class="item-row">
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="p0">0</span>
-                              </div>
-                              <div class="item-cell item-cell-shrink-3">
-                                <!-- Dual range slider with all the parameters passed via data- attributes -->
-                                <div
-                                  id="pfilter"
-                                  class="range-slider range-slider-init color-green"
-                                  data-label="true"
-                                  data-dual="true"
-                                  data-min="0"
-                                  data-max="10"
-                                  data-step="1"
-                                  data-value-left="0"
-                                  data-value-right="10"
-                                ></div>
-                              </div>
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="p1">10</span>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
+                        <div class="sheet-modal my-sheet-swipe-to-close" style="height:auto; --f7-sheet-bg-color: #fff;">
+                            <div class="sheet-modal-inner">
+                              <div class="page-content">
+                                <div class="list simple-list">
+                                  <ul>
+                                    <li class="item-row">
+                                      <div class="item-cell width-auto flex-shrink-0">
+                                        <span class="p0">0</span>
+                                      </div>
+                                      <div class="item-cell item-cell-shrink-3">
+                                        <!-- Dual range slider with all the parameters passed via data- attributes -->
+                                        <div
+                                          id="pfilter"
+                                          class="range-slider range-slider-init color-green"
+                                          data-label="true"
+                                          data-dual="true"
+                                          data-min="0"
+                                          data-max="10"
+                                          data-step="1"
+                                          data-value-left="0"
+                                          data-value-right="10"
+                                        ></div>
+                                      </div>
+                                      <div class="item-cell width-auto flex-shrink-0">
+                                        <span class="p1">10</span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
 
-                        <div class="list simple-list">
-                          <ul>
-                            <li class="item-row">
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="y1">1940</span>
+                                <div class="list simple-list">
+                                  <ul>
+                                    <li class="item-row">
+                                      <div class="item-cell width-auto flex-shrink-0">
+                                        <span class="y1">1940</span>
+                                      </div>
+                                      <div class="item-cell item-cell-shrink-3">
+                                        <!-- Dual range slider with all the parameters passed via data- attributes -->
+                                        <div
+                                          id="yfilter"
+                                          class="range-slider range-slider-init color-green"
+                                          data-label="true"
+                                          data-dual="true"
+                                          data-min="1940"
+                                          data-max="2020"
+                                          data-step="1"
+                                          data-value-left="1940"
+                                          data-value-right="2020"
+                                        ></div>
+                                      </div>
+                                      <div class="item-cell width-auto flex-shrink-0">
+                                        <span class="y2">2020</span>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
                               </div>
-                              <div class="item-cell item-cell-shrink-3">
-                                <!-- Dual range slider with all the parameters passed via data- attributes -->
-                                <div
-                                  id="yfilter"
-                                  class="range-slider range-slider-init color-green"
-                                  data-label="true"
-                                  data-dual="true"
-                                  data-min="1940"
-                                  data-max="2020"
-                                  data-step="1"
-                                  data-value-left="1940"
-                                  data-value-right="2020"
-                                ></div>
-                              </div>
-                              <div class="item-cell width-auto flex-shrink-0">
-                                <span class="y2">2020</span>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-
+                            </div>
+                          </div>
                         
                         <div class="col-50">
                             <h1 id="tManga"></h1>  
