@@ -46,14 +46,14 @@ var app = new Framework7({
 });
 
 var searchbar = app.searchbar.create({
-  el: '.searchbar',
-  searchContainer: '.list',
-  searchIn: '.item-title',
+  el: ".searchbar",
+  searchContainer: ".list",
+  searchIn: ".item-title",
   on: {
     search(sb, query, previousQuery) {
       console.log(query, previousQuery);
-    }
-  }
+    },
+  },
 });
 
 var mainView = app.views.create(".view-main");
@@ -76,6 +76,15 @@ $$(document).on("page:init", '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="index" attribute loaded and initialized
   $$("#btnRv").on("click", randomButtonV);
   $$(".open-preloader-indicator").on("click", loadM);
+
+  $(document).ready(function () {
+    $("#btnSmore, #spanBtn").click(function () {
+      $("#sManga").toggleClass("sMangaMore");
+      $("#spanBtn").text() === "Cerrar"
+        ? $("#spanBtn").text("Leer más")
+        : $("#spanBtn").text("Cerrar");
+    });
+  });
 
 });
 
@@ -103,6 +112,15 @@ $$(document).on("page:init", '.page[data-name="random"]', function (e) {
   $$("#pfilter").on("range:change", pFilterManga);
   $$("#yfilter").on("range:change", yFilterManga);
   $$("#btnRu").on("click", randomButtonU);
+  $$(".open-preloader-indicator").on("click", loadM);
+  $(document).ready(function () {
+    $("#btnSmore, #spanBtn").click(function () {
+      $("#sManga").toggleClass("sMangaMore");
+      $("#spanBtn").text() === "Cerrar"
+        ? $("#spanBtn").text("Leer más")
+        : $("#spanBtn").text("Cerrar");
+    });
+  });
 });
 
 $$(document).on("page:init", '.page[data-name="search"]', function (e) {
@@ -281,6 +299,13 @@ function randomButtonV() {
         //Sinopsis del Manga.
         sManga = datosRecibidos.synopsis;
 
+        if (sManga == null) {
+          console.log("Este Manga no tiene sinopsis");
+          $$("#sManga").html('<p>Looking for information on the '+ tyManga + ' ' + tManga + '? Find out more with MyAnimeList, the world' + "'" + 's most active online anime and manga community and database.</p>');
+        } else {
+          $$("#sManga").html(sManga);
+        }
+
         //Año del Manga.
         yManga = datosRecibidos.published.prop.from.year;
 
@@ -337,10 +362,15 @@ function randomButtonV() {
         $$("#pManga").html(pManga);
         $$("#imgManga").attr("src", imgManga);
         $$("#tManga").html(tManga);
-        $$("#tyManga").html(tyManga);
-        $$("#sManga").html(sManga);
+        $$("#tyManga").html(tyManga + "<hr>");
+        $$("#spanBtn").html('<span style="color: #de690c" id="btnSmore">Leer más</span>');
         $$("#lManga").html(lManga);
         $$("#yManga").html(yManga);
+        $$("#bImg").html(
+          '<div class="bimgM" style="background-image: url(' +
+            imgManga +
+            ')"></div>'
+        );
       },
       fnErrorV
     );
@@ -381,8 +411,20 @@ function randomButtonU() {
         //Titulo del Manga.
         tManga = datosRecibidos.title;
 
+        //Titulo en ingles del Manga.
+        tEManga = datosRecibidos.title_english;
+
+        if (tEManga == null) {
+          $$("#tEManga").html("");
+        } else {
+          $$("#tEManga").html("(" + tEManga + ")");
+        }
+
         //Tipo de Manga.
         tyManga = datosRecibidos.type;
+
+        //Estado del Manga.
+        eManga = datosRecibidos.status;
 
         //Puntuación del Manga.
         var pManga = datosRecibidos.score;
@@ -415,6 +457,14 @@ function randomButtonU() {
           return randomButtonU();
         }
 
+        if (yManga == null) {
+          $$('#pManga').html("");
+        } else {
+          $$("#yManga").html(yManga + "<hr>");
+        }
+
+
+
         //Url del Manga.
         lManga = datosRecibidos.url;
 
@@ -437,7 +487,7 @@ function randomButtonU() {
           //console.log(malId);
 
           $$("#gManga").append(
-            '<div class="col-40 button button-outline button-round button-raised color-red text-color-white" id="idManga' +
+            '<div class="button button-outline button-round button-raised color-red text-color-white swiper-slide" id="idManga' +
               malId +
               '">' +
               gManga +
@@ -490,10 +540,18 @@ function randomButtonU() {
 
         $$("#imgManga").attr("src", imgManga);
         $$("#tManga").html(tManga);
-        $$("#tyManga").html(tyManga);
+        $$("#tyManga").html(tyManga + "<hr>");
+        $$("#pManga").html(pManga + "<hr>");
+        $$("#spanBtn").html('<span style="color: #de690c" id="btnSmore">Leer más</span>');
+        $$("#eManga").html(eManga + "<hr>");
         $$("#sManga").html(sManga);
         $$("#lManga").html(lManga);
-        $$("#yManga").html(yManga);
+        $$(".itmO").html("Synopsis");
+        $$("#bImg").html(
+          '<div class="bimgM" style="background-image: url(' +
+            imgManga +
+            ')"></div>'
+        );
       },
       fnErrorU
     );
@@ -518,13 +576,10 @@ function yFilterManga(e) {
 }
 
 function searchManga() {
+  //for (var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
+  //$$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="letterManga' + String.fromCharCode(i) + '">' + String.fromCharCode(i) + '</a>' + ' ');
 
-
-//for (var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
-//$$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="letterManga' + String.fromCharCode(i) + '">' + String.fromCharCode(i) + '</a>' + ' ');
-
-
-/*var arrL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  /*var arrL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 var letterM = "";
 $$("#containerSearchLetter").html("");
 
@@ -535,44 +590,78 @@ for (var i = 0; i < arrL.length; i++) {
   $$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="letterManga' + i + '" data-value="' + i + '">' + letterM + '</a>');
 */
 
-
-  var arr = ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+/*  var arr = [
+  "#",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
   var iterador = arr.values();
 
   for (let letra of iterador) {
-    $$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="letterManga' + letra + '" data-format="' + letra + '">' + letra + '</a>' + " ");
+    $$("#containerSearchLetter").append(
+      '<a class="ltrsM" href="#" id="letterManga' +
+        letra +
+        '" data-format="' +
+        letra +
+        '">' +
+        letra +
+        "</a>" +
+        " "
+    );
 
-      $$('#letterManga' + letra).click(function() {
+    $$("#letterManga" + letra).click(function () {
+      var f = $$(this).data("format");*/
 
-      var f = $$(this).data('format');
+      const array = ["1", "2", "3"]
+      array.forEach(function (index) {
+      console.log(index);
 
-      var url = "https://api.jikan.moe/v3/search/manga?q=&page=1&letter=" + f;
-      console.log(url);
+      var url = "https://api.jikan.moe/v3/search/manga?q=&page=" + index + "&letter=" //+ f;
+      console.log(url);  
 
-        app.request.json(url, function (searchDataLetter) {
-            var r = searchDataLetter.results.length;
-            var searchTitle = "";
-            var searchImg = "";
-            $$('#containerSearch').html("");
-            $$('#searchImg').html("");
-            $$('#searchImg').attr('src', "");
-            
-            for (var i = 0; i < r; i++) {
-              searchTitle = searchDataLetter.results[i].title;
-              searchImg = searchDataLetter.results[i].image_url;
-              $$('#searchImg').attr('src', searchImg);
-              $$('#containerSearch').append('<div class="row"><div class="col"><img src="" id="searchImg' + i + '" /><div class="row"><div class="col"><div id="searchTitle' + i + '">' + searchTitle + '</div></div></div></div></div></div></div></div></div>');
-              $$('#searchImg' + i).attr('src', searchImg);
-            }
-        });
+      app.request.json(url, function (searchDataLetter) {
+        var r = searchDataLetter.results.length;
 
+        for (var i = 0; i < r; i++) {
+          searchTitle = searchDataLetter.results[i].title;
+          searchImg = searchDataLetter.results[i].image_url;
+          $$("#searchImg" + i).attr('src', searchImg);
+          $$("#containerSearch").append('<img src="" id="searchImg' + i + '" class="searchImg" />');
+
+          //$$("#containerSearch").append('<div><img src="" class="searchImg" /><p class="searchTitle">' + searchTitle + '</p></div>');
+        }
       });
-       
-    }
+    });
+
+    //});
+  //}
   //}
 }
 
-  
 //}
 
 /*function gCBManga(e) {
@@ -604,34 +693,4 @@ function loadM() {
   setTimeout(function () {
     app.preloader.hide();
   }, 2000);
-}
-
-function AddReadMore() {
-    console.log("Entró en la función!");
-    //This limit you can set after how much characters you want to show Read More.
-    var carLmt = 120;
-    // Text to show when text is collapsed
-    var readMoreTxt = " ... Read More";
-    // Text to show when text is expanded
-    var readLessTxt = " Read Less";
-
-
-    //Traverse all selectors with this class and manupulate HTML part to show Read More
-    $(".addReadMore").each(function() {
-        if ($(this).find(".firstSec").length)
-            return;
-
-        var allstr = $(this).text();
-        if (allstr.length > carLmt) {
-            var firstSet = allstr.substring(0, carLmt);
-            var secdHalf = allstr.substring(carLmt, allstr.length);
-            var strtoadd = firstSet + "<span class='SecSec'>" + secdHalf + "</span><span class='readMore'  title='Click to Show More'>" + readMoreTxt + "</span><span class='readLess' title='Click to Show Less'>" + readLessTxt + "</span>";
-            $(this).html(strtoadd);
-        }
-
-    });
-    //Read More and Read Less Click Event binding
-    $(document).on("click", ".readMore,.readLess", function() {
-        $(this).closest(".addReadMore").toggleClass("showlesscontent showmorecontent");
-    });
 }

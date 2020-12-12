@@ -125,7 +125,17 @@ body {
 
 #sManga {
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
+}
+
+.sMangaLess {
+  max-height: 30px;
+  overflow: hidden;
+}
+
+.sMangaMore {
+  max-height: 100%;
+  overflow: inherit;
 }
 
 li {
@@ -176,56 +186,44 @@ li {
   width: 100px;
   float: left;
   margin-right: 10px;
-  padding: 2px;
 }
 
 #gManga {
   display: flex;
   float: left;
+  margin-top: 5px;
 }
 
 #tManga {
-  font-size: 20px;
+  font-size: 16px;
   text-align: left;
   margin: auto;
+  padding-left: 10px;
 }
 
 #aManga {
-  font-size: 14px;
-  font-style: normal italic;
+  font-size: 13px;
+  font-style: normal;
   text-align: left;
   margin: 0;
+  padding-left: 10px;
+
 }
 
-.addReadMore.showlesscontent .SecSec,
-    .addReadMore.showlesscontent .readLess {
-        display: none;
-    }
+#tyManga {
+  font-size: 10px;
+  float: left;
+  margin: auto;
+  font-style: italic;
+}
 
-    .addReadMore.showmorecontent .readMore {
-        display: none;
-    }
-
-    .addReadMore .readMore,
-    .addReadMore .readLess {
-        font-weight: bold;
-        margin-left: 2px;
-        color: blue;
-        cursor: pointer;
-    }
-
-    .addReadMoreWrapTxt.showmorecontent .SecSec,
-    .addReadMoreWrapTxt.showmorecontent .readLess {
-        display: block;
-    }
-
-[id^=searchImg]{
+[class^=searchImg]{
   width: 120px;
   padding: 10px;
   border-radius: 20px;
 }
 
-[id^=searchTitle]{
+[class^=searchTitle]{
   font-size: 13px;
   inline-size: 150px;
 }
@@ -234,4 +232,117 @@ li {
   display: flex;
   flex-flow: wrap;
   justify-content: center;
+}
+
+#gManga .button {
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+#pManga {
+  font-size: 10px;
+  text-align: left;
+  font-style: italic;
+  margin: auto;
+  padding-left: 10px;
+}
+
+#yManga {
+  font-size: 10px;
+  text-align: left;
+  font-style: italic;
+  margin: auto;
+  padding-left: 10px;
+}
+
+#eManga {
+  font-size: 10px;
+  text-align: left;
+  font-style: italic;
+  padding-left: 10px;
+}
+
+.itmO {
+  text-align: left;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.bimgM {
+  height: 150px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 40%;
+  filter: blur(2px);
+  box-shadow: inset 0px -40px 20px -20px #323146;
+}
+
+#spanBtn {
+  display: flex;
+  flex-flow: row-reverse;
+  background-image: url(../img/icon/1x/keyboard_arrow_down-black-18dp.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  padding-right: 22px;
+  color: #de690c;
+  filter: invert(1);
+}
+
+.rlbtn  {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+h1 {
+  font-size: 18px;
+}
+
+h2 {
+  font-size: 13px;
+}
+
+.ctgM {
+  display: flex;
+  float: left;
+}
+
+.cSManga {
+  margin: 0px 0px 0px 7px;
+}
+
+#tEManga {
+  font-size: 14px;
+  text-align: left;
+  margin: auto;
+  padding-left: 10px;
+  font-style: italic;
+  font-weight: 500;
+  color: #d4d4d4;
+}
+
+#tyManga > hr {
+  border: 0;
+  border-top: 2px solid #ff3b30;
+}
+
+#yManga > hr {
+  border: 0;
+  border-top: 2px solid #238bdf;
+}
+
+#eManga > hr {
+  border: 0;
+  border-top: 2px solid white;
+}
+
+#pManga > hr {
+  border: 0;
+  border-top: 2px solid #ebc817;
 }
