@@ -279,7 +279,7 @@ function logOut() {
 function randomButtonV() {
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
-  $$('#welcome').html("");
+  loadM();
 
   num = Math.floor(Math.random() * 1047) + 1;
 
@@ -364,10 +364,10 @@ function randomButtonV() {
           );
 
           //Para excluir algunos generos.
-          if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
+          /*if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
             console.log("Genero excluido");
 
-            /*tManga = "";*/
+            /*tManga = "";
             gManga = "";
             /*aManga = "";
             pManga = "";
@@ -375,15 +375,16 @@ function randomButtonV() {
             imgManga = "";
 
             $$("#sManga").html(sManga);
-            $$("#tManga").html(tManga);*/
+            $$("#tManga").html(tManga);
             $$("#gManga").html(gManga);
             /*$$("#aManga").html(aManga);
             $$("#pManga").html(pManga);
-            $$("#imgManga").attr("src", imgManga);*/
+            $$("#imgManga").attr("src", imgManga);
             return [loadM(), randomButtonV()];
-          }
+          }*/
         }
 
+        $$('#welcome').html("");
         $$("#pManga").html(pManga);
         $$("#imgManga").attr("src", imgManga);
         $$("#tManga").html(tManga);
@@ -396,11 +397,8 @@ function randomButtonV() {
         $$("#bImg").html(
           '<div class="bimgM" style="background-image: url(' +
             imgManga +
-            ')"></div>'
-        );
-      },
-      fnErrorV
-    );
+            ')"></div>');
+      }, fnErrorV);
   });
 }
 
@@ -412,7 +410,7 @@ function fnErrorV() {
 function randomButtonU() {
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
-  $$('#loadMessage').html("");
+  loadM();
 
   num = Math.floor(Math.random() * 270) + 1;
 
@@ -471,7 +469,20 @@ function randomButtonU() {
         $$("#pManga").html(pManga);
 
         //Sinopsis del Manga.
-        sManga = datosRecibidos.synopsis;
+        if (sManga == null) {
+          console.log("Este Manga no tiene sinopsis");
+          $$("#sManga").html(
+            "<p>Looking for information on the " +
+              tyManga +
+              " " +
+              tManga +
+              "? Find out more with MyAnimeList, the world" +
+              "'" +
+              "s most active online anime and manga community and database.</p>"
+          );
+        } else {
+          $$("#sManga").html(sManga);
+        }
 
         //Año del Manga.
         var yManga = datosRecibidos.published.prop.from.year;
@@ -565,6 +576,7 @@ function randomButtonU() {
           }*/
         }
 
+        $$('#loadMessage').html("");
         $$("#imgManga").attr("src", imgManga);
         $$("#tManga").html(tManga);
         $$("#tyManga").html(tyManga + "<hr>");
@@ -712,7 +724,7 @@ function loadM() {
   app.preloader.show();
   setTimeout(function () {
     app.preloader.hide();
-  }, 2000);
+  }, 3000);
 }
 
 function welcome() {
