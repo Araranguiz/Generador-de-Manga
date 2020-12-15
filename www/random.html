@@ -7,7 +7,7 @@
         <a
           class="button sheet-open"
           href="#"
-          data-sheet=".my-sheet-swipe-to-close"
+          data-sheet=".my-sheet"
         >
           <i class="material-icons">filter_list</i>
         </a>
@@ -34,15 +34,20 @@
   <div class="page-content">
     <div id="bImg"></div>
 
-    <div
-      class="sheet-modal my-sheet-swipe-to-close"
-      style="height: auto; --f7-sheet-bg-color: #fff"
-    >
-      <div class="sheet-modal-inner">
-        <div class="page-content">
-          <div class="list simple-list">
+    <!-- Default bottom sheet -->
+  <div class="sheet-modal my-sheet">
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="left"></div>
+        <div class="right"><a class="link sheet-close" href="#">Done</a></div>
+      </div>
+    </div>
+    <div class="sheet-modal-inner">
+      <div class="block">
+        <div class="block-title display-flex justify-content-space-between">Puntuación</div>
+        <div class="list simple-list">
             <ul>
-              <li class="item-row">
+              <li style="background-color: #1e1d2a" class="item-row">
                 <div class="item-cell width-auto flex-shrink-0">
                   <span class="p0">0</span>
                 </div>
@@ -67,9 +72,10 @@
             </ul>
           </div>
 
+          <div class="block-title display-flex justify-content-space-between">Año</div>
           <div class="list simple-list">
             <ul>
-              <li class="item-row">
+              <li style="background-color: #1e1d2a" class="item-row">
                 <div class="item-cell width-auto flex-shrink-0">
                   <span class="y1">1940</span>
                 </div>
@@ -93,11 +99,17 @@
               </li>
             </ul>
           </div>
-        </div>
       </div>
     </div>
+  </div>
+
+          
 
     <div id="loadM"></div>
+
+    <div id="loadMessage">
+      
+    </div>
 
     <div>
       <div class="row">

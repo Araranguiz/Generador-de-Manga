@@ -45,20 +45,7 @@ var app = new Framework7({
   // ... other parameters
 });
 
-var searchbar = app.searchbar.create({
-  el: ".searchbar",
-  searchContainer: ".list",
-  searchIn: ".item-title",
-  on: {
-    search(sb, query, previousQuery) {
-      console.log(query, previousQuery);
-    },
-  },
-});
-
 var mainView = app.views.create(".view-main");
-
-var $$ = Dom7;
 
 var userName, name, email, photoUrl, uid, emailVerified;
 
@@ -74,9 +61,21 @@ $$(document).on("page:init", function (e) {
 
 $$(document).on("page:init", '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="index" attribute loaded and initialized
+  welcome();
+  // create searchbar
+var searchbar = app.searchbar.create({
+  el: '.searchbar',
+  searchContainer: '.list',
+  searchIn: '.item-title',
+  on: {
+    search(sb, query, previousQuery) {
+      console.log(query, previousQuery);
+    }
+  }
+});
+
   $$("#btnRv").on("click", randomButtonV);
   $$(".open-preloader-indicator").on("click", loadM);
-
   $(document).ready(function () {
     $("#btnSmore, #spanBtn").click(function () {
       $("#sManga").toggleClass("sMangaMore");
@@ -85,7 +84,6 @@ $$(document).on("page:init", '.page[data-name="index"]', function (e) {
         : $("#spanBtn").text("Cerrar");
     });
   });
-
 });
 
 // Option 2. Using live 'page:init' event handlers for each page
@@ -109,6 +107,7 @@ $$(document).on("page:init", '.page[data-name="user"]', function (e) {
 
 $$(document).on("page:init", '.page[data-name="random"]', function (e) {
   // Do something here when page with data-name="random" attribute loaded and initialized
+  $$('#loadMessage').html('<p style="position: absolute;top: 45%;left: 10%;inline-size: 300px;">Toque el botón de Random para obtener un título de Manga al Azar.</p>');
   $$("#pfilter").on("range:change", pFilterManga);
   $$("#yfilter").on("range:change", yFilterManga);
   $$("#btnRu").on("click", randomButtonU);
@@ -124,8 +123,24 @@ $$(document).on("page:init", '.page[data-name="random"]', function (e) {
 });
 
 $$(document).on("page:init", '.page[data-name="search"]', function (e) {
-  // Do something here when page with data-name="search" attribute loaded and initialized
-  return searchManga();
+  // Do something here when page with data-name="index" attribute loaded and initialized
+  $$('#selectOrder').on('change', function () {
+    $$('#containerSearch').html("");
+    
+    return searchMangaPages();
+  });
+  // create searchbar
+  var searchbar = app.searchbar.create({
+    el: ".searchbar",
+    searchContainer: ".list",
+    searchIn: ".item-title",
+    on: {
+      search(sb, query, previousQuery) {
+        console.log(query, previousQuery);
+      },
+    },
+  });
+  return [loadImgManga(), searchMangaPages()];
 });
 
 function userIn() {
@@ -264,6 +279,8 @@ function logOut() {
 function randomButtonV() {
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
+  $$('#welcome').html("");
+
   num = Math.floor(Math.random() * 1047) + 1;
 
   url = "https://api.jikan.moe/v3/top/manga/" + num;
@@ -301,7 +318,15 @@ function randomButtonV() {
 
         if (sManga == null) {
           console.log("Este Manga no tiene sinopsis");
-          $$("#sManga").html('<p>Looking for information on the '+ tyManga + ' ' + tManga + '? Find out more with MyAnimeList, the world' + "'" + 's most active online anime and manga community and database.</p>');
+          $$("#sManga").html(
+            "<p>Looking for information on the " +
+              tyManga +
+              " " +
+              tManga +
+              "? Find out more with MyAnimeList, the world" +
+              "'" +
+              "s most active online anime and manga community and database.</p>"
+          );
         } else {
           $$("#sManga").html(sManga);
         }
@@ -363,7 +388,9 @@ function randomButtonV() {
         $$("#imgManga").attr("src", imgManga);
         $$("#tManga").html(tManga);
         $$("#tyManga").html(tyManga + "<hr>");
-        $$("#spanBtn").html('<span style="color: #de690c" id="btnSmore">Leer más</span>');
+        $$("#spanBtn").html(
+          '<span style="color: #de690c" id="btnSmore">Leer más</span>'
+        );
         $$("#lManga").html(lManga);
         $$("#yManga").html(yManga);
         $$("#bImg").html(
@@ -384,6 +411,8 @@ function fnErrorV() {
 
 function randomButtonU() {
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
+
+  $$('#loadMessage').html("");
 
   num = Math.floor(Math.random() * 270) + 1;
 
@@ -458,12 +487,10 @@ function randomButtonU() {
         }
 
         if (yManga == null) {
-          $$('#pManga').html("");
+          $$("#pManga").html("");
         } else {
           $$("#yManga").html(yManga + "<hr>");
         }
-
-
 
         //Url del Manga.
         lManga = datosRecibidos.url;
@@ -542,7 +569,9 @@ function randomButtonU() {
         $$("#tManga").html(tManga);
         $$("#tyManga").html(tyManga + "<hr>");
         $$("#pManga").html(pManga + "<hr>");
-        $$("#spanBtn").html('<span style="color: #de690c" id="btnSmore">Leer más</span>');
+        $$("#spanBtn").html(
+          '<span style="color: #de690c" id="btnSmore">Leer más</span>'
+        );
         $$("#eManga").html(eManga + "<hr>");
         $$("#sManga").html(sManga);
         $$("#lManga").html(lManga);
@@ -575,94 +604,85 @@ function yFilterManga(e) {
   $$(".y2").text(range.value[1]);
 }
 
-function searchManga() {
-  //for (var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
-  //$$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="letterManga' + String.fromCharCode(i) + '">' + String.fromCharCode(i) + '</a>' + ' ');
+function loadImgManga() {
+  // Loading flag
+  var allowInfinite = true;
 
-  /*var arrL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-var letterM = "";
-$$("#containerSearchLetter").html("");
+  // Last loaded index
+  var lastItemIndex = $$("#containerSearch img").length;
+  console.log(lastItemIndex);
+  // Max items to load
+  var maxItems = 5000;
 
-$$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="chrM">' + "#" + '</a>' + ' ');
+  // Append items per load
+  var itemsPerLoad = 50;
 
-for (var i = 0; i < arrL.length; i++) {
-  letterM = arrL[i] + " ";
-  $$('#containerSearchLetter').append('<a class="ltrsM" href="#" id="letterManga' + i + '" data-value="' + i + '">' + letterM + '</a>');
-*/
+  // Attach 'infinite' event handler
+  $$(".infinite-scroll-content").on("infinite", function () {
+    // Exit, if loading in progress
+    console.log("entró!");
+    if (!allowInfinite) return;
 
-/*  var arr = [
-  "#",
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
-  var iterador = arr.values();
+    // Set loading flag
+    allowInfinite = false;
 
-  for (let letra of iterador) {
-    $$("#containerSearchLetter").append(
-      '<a class="ltrsM" href="#" id="letterManga' +
-        letra +
-        '" data-format="' +
-        letra +
-        '">' +
-        letra +
-        "</a>" +
-        " "
-    );
+    // Emulate 1s loading
+    setTimeout(function () {
+      // Reset loading flag
+      allowInfinite = true;
 
-    $$("#letterManga" + letra).click(function () {
-      var f = $$(this).data("format");*/
+      if (lastItemIndex >= maxItems) {
+        // Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+        app.infiniteScroll.destroy(".infinite-scroll-content");
+        // Remove preloader
+        $$(".infinite-scroll-preloader").remove();
+        return;
+      }
 
-      const array = ["1", "2", "3"]
-      array.forEach(function (index) {
-      console.log(index);
+      // Update last loaded index
+      lastItemIndex = $$("#containerSearch img").length;
+      console.log(lastItemIndex);
 
-      var url = "https://api.jikan.moe/v3/search/manga?q=&page=" + index + "&letter=" //+ f;
-      console.log(url);  
-
-      app.request.json(url, function (searchDataLetter) {
-        var r = searchDataLetter.results.length;
-
-        for (var i = 0; i < r; i++) {
-          searchTitle = searchDataLetter.results[i].title;
-          searchImg = searchDataLetter.results[i].image_url;
-          $$("#searchImg" + i).attr('src', searchImg);
-          $$("#containerSearch").append('<img src="" id="searchImg' + i + '" class="searchImg" />');
-
-          //$$("#containerSearch").append('<div><img src="" class="searchImg" /><p class="searchTitle">' + searchTitle + '</p></div>');
-        }
-      });
-    });
-
-    //});
-  //}
-  //}
+      // Generate new items HTML
+      searchMangaPages();
+    }, 1000);
+  });
 }
 
-//}
+function searchMangaPages(lastItemIndex) {
+
+  var lastItemIndex = $$("#containerSearch img").length;
+
+  var x = lastItemIndex / 50;
+  const array = [1 + x];
+  array.forEach(function (index) {
+    //console.log(index);
+    loadSearchManga(index);
+    console.log(x);
+  });
+}
+
+function loadSearchManga(index) {  
+  
+  if ($$('#selectOrder').val() == "1") {
+    var url = "https://api.jikan.moe/v3/search/manga?q=&order_by=score&sort=desc&page=" + index;
+  } else if ($$('#selectOrder').val() == "2") {
+    var url = "https://api.jikan.moe/v3/search/manga?q=&page=" + index + "&letter="
+  }
+
+    app.request.json(url, function (searchDataLetter) {
+      var r = searchDataLetter.results.length;
+      
+      //console.log("largo de " + index + " es " + r);
+      for (var i = 0; i < r; i++) {
+        searchTitle = searchDataLetter.results[i].title;
+        searchImg = searchDataLetter.results[i].image_url;
+        //--> NO USAR //  $$("#searchImg" + i).attr('src', searchImg);
+        //$$("#containerSearch").append('<li class="item-title"><img src="' + searchImg + '" id="searchImg_' + index + "_" + i + '" class="searchImg" /><p id="searchTitle_' + index + "_" + i + '" class="searchTitle">' + searchTitle + "</p></li>");
+        $$("#containerSearch").append('<li><img src="' + searchImg + '" id="searchImg_' + index + "_" + i + '" class="searchImg" /><p id="searchTitle_' + index + "_" + i + '" class="searchTitle item-title">' + searchTitle + '</p></li>');
+      }
+  });
+}
 
 /*function gCBManga(e) {
 
@@ -693,4 +713,8 @@ function loadM() {
   setTimeout(function () {
     app.preloader.hide();
   }, 2000);
+}
+
+function welcome() {
+  $$('#welcome').html('<div style="display: flex;flex-flow: column;justify-content: center;align-items: center;"><h1>Bienvend@ a </h1><h2 style="font-size:20px">"Random Manga Generator"</h2><p style="inline-size:230px;margin-bottom: 50px">Toque el botón para obtener título de Manga al azar.</p></div>')
 }
