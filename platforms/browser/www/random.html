@@ -1,0 +1,140 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="random">
+  <div class="navbar">
+    <div class="navbar-bg"></div>
+    <div class="navbar-inner">
+      <div class="right">
+        <a
+          class="button sheet-open"
+          href="#"
+          data-sheet=".my-sheet"
+        >
+          <i class="material-icons">filter_list</i>
+        </a>
+      </div>
+      <div class="title">Random Manga</div>
+      <div class="right"></div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar toolbar-bottom">
+    <div class="toolbar-inner">
+      <!-- Toolbar links -->
+      <a class="button sheet-open" href="/user/">
+        <i class="material-icons">home</i>
+      </a>
+      <a id="btnRu" class="button sheet-open" href="#"> Random </a>
+      <a class="button sheet-open" href="/search/">
+        <i class="material-icons">search</i>
+      </a>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div id="bImg"></div>
+
+    <!-- Default bottom sheet -->
+  <div class="sheet-modal my-sheet">
+    <div class="toolbar">
+      <div class="toolbar-inner">
+        <div class="left"></div>
+        <div class="right"><a class="link sheet-close" href="#">Done</a></div>
+      </div>
+    </div>
+    <div class="sheet-modal-inner">
+      <div class="block">
+        <div class="block-title display-flex justify-content-space-between">Puntuación</div>
+        <div class="list simple-list">
+            <ul>
+              <li style="background-color: #1e1d2a" class="item-row">
+                <div class="item-cell width-auto flex-shrink-0">
+                  <span class="p0">0</span>
+                </div>
+                <div class="item-cell item-cell-shrink-3">
+                  <!-- Dual range slider with all the parameters passed via data- attributes -->
+                  <div
+                    id="pfilter"
+                    class="range-slider range-slider-init color-green"
+                    data-label="true"
+                    data-dual="true"
+                    data-min="0"
+                    data-max="10"
+                    data-step="1"
+                    data-value-left="0"
+                    data-value-right="10"
+                  ></div>
+                </div>
+                <div class="item-cell width-auto flex-shrink-0">
+                  <span class="p1">10</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="block-title display-flex justify-content-space-between">Año</div>
+          <div class="list simple-list">
+            <ul>
+              <li style="background-color: #1e1d2a" class="item-row">
+                <div class="item-cell width-auto flex-shrink-0">
+                  <span class="y1">1940</span>
+                </div>
+                <div class="item-cell item-cell-shrink-3">
+                  <!-- Dual range slider with all the parameters passed via data- attributes -->
+                  <div
+                    id="yfilter"
+                    class="range-slider range-slider-init color-green"
+                    data-label="true"
+                    data-dual="true"
+                    data-min="1940"
+                    data-max="2021"
+                    data-step="1"
+                    data-value-left="1940"
+                    data-value-right="2021"
+                  ></div>
+                </div>
+                <div class="item-cell width-auto flex-shrink-0">
+                  <span class="y2">2021</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+      </div>
+    </div>
+  </div>
+
+          
+
+    <div id="loadM"></div>
+
+    <div id="loadMessage">
+      
+    </div>
+
+    <div>
+      <div class="row">
+        <div class="col-100 medium-50">
+          <img src="" id="imgManga" />
+          <h1 id="tManga"></h1>
+          <h2 id="tEManga"></h2>
+          <p id="aManga"></p>
+          <div class="ctgM">
+            <p id="tyManga"></p>
+            <p id="yManga"></p>
+            <p id="eManga"></p>
+            <p id="pManga"></p>
+          </div>
+        </div>
+          <div class="swiper-container swiper-init demo-swiper">
+            <div class="swiper-wrapper" id="gManga"></div>
+          </div>
+          <div class="cSManga">
+            <p class="itmO"></p>
+            <p class="sMangaLess" id="sManga"></p>
+            <div id="spanBtn"></div>
+          </div>
+          
+      </div>
+    </div>
+  </div>
+</div>

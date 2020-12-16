@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *">-->
+
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#2196f3">
+    <!-- Your app title -->
+    <title>Random Manga Generator</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+    <!-- Path to Framework7 Library CSS -->
+    <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
+    <!-- Path to icons -->
+    <link rel="stylesheet" href="css/icons.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Statusbar overlay -->
+        <div class="statusbar"></div>
+    
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Initial Page, "data-name" contains page name -->
+            <div data-name="index" class="page">
+        
+                <!-- Scrollable page content -->
+                
+                <div id="loadM" class="page-content">
+                  <div id="bImg"></div>
+
+                              <div>
+                                <div class="row">
+                                  <div class="col-100 medium-50">
+                                    <img src="" id="imgManga" />
+                                    <h1 id="tManga"></h1>
+                                    <p id="aManga"></p>
+                                    <p id="tyManga" style="padding: 0px"></p><br>
+                                    <p class="sMangaLess" id="sManga"></p>
+                                    <div id="spanBtn"></div>
+                                  </div>
+                                  <div class="swiper-container swiper-init demo-swiper">
+                                    <div class="swiper-wrapper" id="gManga">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div id="welcome">
+
+                              </div>
+
+                                <input type="image" style="width: 200px;margin-bottom: 50px;" src="img/icon/RMG-off.png" id="btnRv"></input>
+
+                                <div>
+                                  <p style="font-size: 15px; margin-bottom: 0px">¿Ya tenes una cuenta?</p>
+                                  <li class="col"><a class="button convert-form-to-data" href="/login/">Iniciar Sesión</a></li>
+                                </div> 
+                              
+
+                              
+
+
+
+                <!-- <div class="page-content">
+                    <div class="block">
+
+                       
+                        <div class="list">
+                          <ul>
+                            <li>
+                              <label class="a item-checkbox item-content">
+                                <input id="gAction" type="checkbox" name="demo-checkbox" value="1"/>
+                                <i class="icon icon-checkbox"></i>
+                                <div class="item-inner">
+                                  <div class="item-title">Acción</div>
+                                </div>
+                              </label>
+                              <label class="b item-checkbox item-content">
+                                <input id="gAdventure" type="checkbox" name="demo-checkbox" value="2"/>
+                                <i class="icon icon-checkbox"></i>
+                                <div class="item-inner">
+                                  <div class="item-title">Adventura</div>
+                                </div>
+                              </label>
+                            </li>
+                          </ul>
+                        </div>
+                        -->
+                        <!--
+                        <input type="checkbox" name="checkbox" value="1" />
+                        <input type="checkbox" name="checkbox" value="2" />
+                        <input type="checkbox" name="checkbox" value="3" />
+                        <input type="checkbox" name="checkbox" value="4" />
+                        -->
+                        <!--<div class="list">
+                          <ul>
+                            <li>
+                              <label class="item-checkbox item-content">
+                                <input type="checkbox" name="demo-checkbox-movies" value="Movies"/>
+                                <i class="icon icon-checkbox"></i>
+                                <div class="item-inner">
+                                  <div class="item-title">Todos</div>
+                                </div>
+                              </label>
+                            </li>
+                          </ul>
+                        </div>
+                        -->
+<!--
+                        <form class="list">
+                          <ul>
+                            <li>
+                              <div class="item-content item-input">
+                                <div class="item-inner">
+                                  <div class="item-input-wrap">
+                                    <input id="logEmail" type="email" name="email" placeholder="E-mail" required validate>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="item-content item-input">
+                                <div class="item-inner">
+                                  <div class="item-input-wrap">
+                                    <input id="logPass" type="password" name="pass" placeholder="Contraseña" required validate>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </form>
+                          <div id="log" class="col button button-fill"><a class="button convert-form-to-data">Ingresar</a></div>
+                        <div class="col"><a class="button convert-form-to-data" href="/register/">Registrarse</a></div>
+                    
+                    </div>
+                </div>
+
+
+-->   
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
+    <script type="text/javascript" src="js/my-app.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyC4k2S6_xrOXwRdMKWocRpQ7Qfz9RpUA0s",
+        authDomain: "random-manga-generator.firebaseapp.com",
+        databaseURL: "https://random-manga-generator.firebaseio.com",
+        projectId: "random-manga-generator",
+        storageBucket: "random-manga-generator.appspot.com",
+        messagingSenderId: "388308825153",
+        appId: "1:388308825153:web:82696b85b4fcd7521802c0"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+</body>
+
+</html>

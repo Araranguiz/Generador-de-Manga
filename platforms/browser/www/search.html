@@ -1,0 +1,68 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax.  -->
+<div class="page" data-name="search">
+    <div class="navbar">
+        <div class="navbar-bg"></div>
+        <div class="navbar-inner">
+            <div class="left"></div>
+            <div class="title">Buscador</div>
+            <div class="right">
+                <!-- Link to enable searchbar -->
+
+                <a
+                    class="link icon-only searchbar-enable"
+                    data-searchbar=".searchbar"
+                >
+                    <i class="icon f7-icons if-not-md">search</i>
+                    <i class="icon material-icons md-only">search</i>
+                </a>
+                <!-- Open In Sheet -->
+                <a
+                    class="item-link smart-select smart-select-init"
+                    data-open-in="sheet"
+                >
+                    <select id="selectOrder">
+                        <option value="1">Puntuación</option>
+                        <option value="2">Nombre</option>
+                    </select>
+                    <div class="item-content">
+                        <div class="item-inner">
+                            <i class="material-icons">filter_list</i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- Searchbar is a direct child of "navbar-inner" -->
+            <form class="searchbar searchbar-expandable">
+                <div class="searchbar-inner">
+                    <div class="searchbar-input-wrap">
+                        <input type="search" placeholder="Buscar un manga..." />
+                        <i class="searchbar-icon"></i>
+                        <span class="input-clear-button"></span>
+                    </div>
+                    <span class="searchbar-disable-button">Cancel</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar toolbar-bottom">
+        <div class="toolbar-inner">
+            <!-- Toolbar links -->
+            <a class="button sheet-open" href="/user/">
+                <i class="material-icons">home</i>
+            </a>
+            <a class="button sheet-open" href="/random/"> Random </a>
+            <a class="button sheet-open" href="#">
+                <i class="material-icons">search</i>
+            </a>
+        </div>
+    </div>
+
+    <div class="page-content infinite-scroll-content">
+        <div class="list simple-list">
+            <ul id="containerSearch"></ul>
+        </div>
+        <div class="preloader infinite-scroll-preloader"></div>
+    </div>
+</div>
