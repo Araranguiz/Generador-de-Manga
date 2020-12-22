@@ -251,12 +251,21 @@ li {
 #spanBtn {
   display: flex;
   flex-flow: row-reverse;
-  background-image: url(../img/icon/1x/keyboard_arrow_down-black-18dp.svg);
-  background-position: right;
-  background-repeat: no-repeat;
   padding-right: 22px;
   color: #de690c;
   filter: invert(1);
+}
+
+.arrowDown {
+  background-image: url(../img/icon/1x/keyboard_arrow_down-black-18dp.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.arrowUp {
+  background-image: url(../img/icon/1x/keyboard_arrow_down-black-18dp-up.svg);
+  background-position: right;
+  background-repeat: no-repeat;
 }
 
 .rlbtn  {

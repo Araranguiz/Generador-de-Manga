@@ -62,6 +62,7 @@ $$(document).on("page:init", function (e) {
 $$(document).on("page:init", '.page[data-name="index"]', function (e) {
   // Do something here when page with data-name="index" attribute loaded and initialized
   welcome();
+  readMore();
   // create searchbar
 var searchbar = app.searchbar.create({
   el: '.searchbar',
@@ -75,15 +76,6 @@ var searchbar = app.searchbar.create({
 });
 
   $$("#btnRv").on("click", randomButtonV);
-  $$(".open-preloader-indicator").on("click", loadM);
-  $(document).ready(function () {
-    $("#btnSmore, #spanBtn").click(function () {
-      $("#sManga").toggleClass("sMangaMore");
-      $("#spanBtn").text() === "Cerrar"
-        ? $("#spanBtn").text("Leer más")
-        : $("#spanBtn").text("Cerrar");
-    });
-  });
 });
 
 // Option 2. Using live 'page:init' event handlers for each page
@@ -111,7 +103,7 @@ $$(document).on("page:init", '.page[data-name="random"]', function (e) {
   $$("#pfilter").on("range:change", pFilterManga);
   $$("#yfilter").on("range:change", yFilterManga);
   $$("#btnRu").on("click", randomButtonU);
-  $$(".open-preloader-indicator").on("click", loadM);
+
   $(document).ready(function () {
     $("#btnSmore, #spanBtn").click(function () {
       $("#sManga").toggleClass("sMangaMore");
@@ -279,6 +271,7 @@ function logOut() {
 function randomButtonV() {
   //Se esta llamando al TOP MANGA de la API, y se esta tomando el valor del ID.
 
+  readLess();
   loadM();
 
   num = Math.floor(Math.random() * 1047) + 1;
@@ -364,12 +357,12 @@ function randomButtonV() {
           );
 
           //Para excluir algunos generos.
-          /*if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
+          if (malId == 12 || malId == 33 || malId == "" || malId == 0) {
             console.log("Genero excluido");
 
-            /*tManga = "";
+            tManga = "";
             gManga = "";
-            /*aManga = "";
+            aManga = "";
             pManga = "";
             sManga = "";
             imgManga = "";
@@ -377,11 +370,11 @@ function randomButtonV() {
             $$("#sManga").html(sManga);
             $$("#tManga").html(tManga);
             $$("#gManga").html(gManga);
-            /*$$("#aManga").html(aManga);
+            $$("#aManga").html(aManga);
             $$("#pManga").html(pManga);
             $$("#imgManga").attr("src", imgManga);
             return [loadM(), randomButtonV()];
-          }*/
+          }
         }
 
         $$('#welcome').html("");
@@ -729,4 +722,21 @@ function loadM() {
 
 function welcome() {
   $$('#welcome').html('<div style="display: flex;flex-flow: column;justify-content: center;align-items: center;"><h1>Bienvend@ a </h1><h2 style="font-size:20px">"Random Manga Generator"</h2><p style="inline-size:230px;margin-bottom: 50px">Toque el botón para obtener título de Manga al azar.</p></div>')
+}
+
+function readMore() {
+
+    $("#spanBtn").click(function () {
+      $("#sManga").toggleClass("sMangaMore");
+      $(".arrowDown").toggleClass("arrowUp")
+      $("#spanBtn").text() === "Cerrar"
+        ? $("#spanBtn").text("Leer más")
+        : $("#spanBtn").text("Cerrar");
+    });
+}
+
+function readLess() {
+    $("#sManga").removeClass("sMangaMore");
+      $("#spanBtn").text("Leer más");
+    $(".arrowDown").removeClass("arrowUp")
 }
